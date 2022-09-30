@@ -19,5 +19,8 @@ from webapi import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index)
+    path('', views.index),
+    path('profile/', views.profile),
+    path('leaderboard/', views.leaderboard),
+    path('home/', views.home),
 ]
