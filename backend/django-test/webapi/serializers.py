@@ -1,8 +1,15 @@
 from rest_framework import serializers
 from .models import UserProfile
 
-# Convert UserProfile to JSON
-class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
+# Serializes a UserProfile to JSON format for responses
+class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ('first_name', 'last_name', 'pronouns', 'calories_burnt')
+        fields = ('id', 'first_name', 'last_name', 'pronouns', 'weight', 'height_ft', 'height_in', 'calories_burned_today', 'total_calories_burned')
+
+# Serializes a request and ensures it is valid
+class CreateUserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ('first_name', 'last_name', 'pronouns', 'weight', 'height_ft', 'height_in', 'calories_burned_today')
+
