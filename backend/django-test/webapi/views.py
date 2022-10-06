@@ -16,7 +16,7 @@ def home(request, *args, **kwargs):
 def leaderboard(request, *args, **kwargs):
     return render(request, "leaderboard.html")
 
-# HTTP Request and Response Handling for UserProfiles
+# HTTP request and response handling for user profiles
 
 from rest_framework import generics, status
 from .serializers import UserProfileSerializer, CreateUserProfileSerializer
@@ -24,10 +24,11 @@ from .models import UserProfile
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+# View for listing all user profiles
+
 class UserProfileView(generics.ListAPIView):
     queryset = UserProfile.objects.all().order_by('id')
     serializer_class = UserProfileSerializer
-
 
 def UpdateProfile(user_profile, serializer):
     user_profile.pronouns = serializer.data.get('pronouns')
@@ -46,9 +47,10 @@ def CreateProfile(serializer):
     height_ft = serializer.data.get('height_ft')
     height_in = serializer.data.get('height_in')
     calories_burned_today = serializer.data.get('calories_burned_today')
-    return (UserProfile(first_name=first_name, last_name=last_name, weight=weight, height_ft=height_ft,
+    return (UserProfile(first_name=first_name, last_name=last_name, pronouns=pronouns, weight=weight, height_ft=height_ft,
         height_in=height_in, calories_burned_today=calories_burned_today, total_calories_burned=calories_burned_today))
 
+# View for creating / updating user profiles
 
 class CreateUserProfileView(APIView):
     def post(self, request):
