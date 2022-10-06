@@ -28,18 +28,16 @@ jobs:
       # Runs a single command using the runners shell
       
       - name: Runs Python tests
-        run: |
-          pip install pytest
-          pytest -q $(git ls-files '*.py')
+        run: python -m unittest
         
       - name: Test Coverage with Coverage.py
         run: |
           pip install coverage
-          coverage run ./example
-          coverage report -m --fail-under=70
+          coverage run -m unittest discover
+          coverage report -m
       
       - name: Checks if code follows PEP8 style guide 
         run: |
           pip install pylint
           pip install pylint-fail-under
-          pylint --disable=C0103,C0116,C0114,C0115 --fail-under=7 $(git ls-files '*.py')
+          pylint --fail-under=8 $(git ls-files '*.py')
