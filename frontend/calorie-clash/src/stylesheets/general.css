@@ -11,8 +11,8 @@ body {
   /* Navigation Bar Classes and Ids*/
 #navbar {
     background-color: #101B37;
-    opacity: 0.7;
-    display: block;
+    opacity: 0.9;
+    z-index: 100;
 }
   
 /** Width is set with the assumption that 
@@ -42,6 +42,26 @@ there are 3 links in the navbar  so change if needed**/
     width: 99.7%;
 }
   
+
+/*For the button */
+#started {
+    width: 150px;
+    height: 80px;
+    font-size: 20px;
+    padding: 5px 5px;
+    border-radius: 20px 20px;
+    background-color:#302f4d;
+    color:white;
+    border: solid white 2px;
+    box-shadow: 0px 0px 2px 2px rgb(0,0,0);
+}
+
+#started:hover {
+    background-color:#b8b5fc;
+    color:black;
+    border: solid black 2px;
+}
+
 /*Classes and IDs for all the text and main divs*/
 .center {
     display: block;

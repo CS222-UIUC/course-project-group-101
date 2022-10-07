@@ -1,6 +1,12 @@
 import './stylesheets/App.css';
 import './stylesheets/general.css';
 
+/*Opens the getting started page (add correct link when made)*/
+function gettingStarted() {
+  window.open(App, "_self");
+}
+
+/*The Home Page*/
 function App() {
   return (
     <div className="App">
@@ -8,7 +14,7 @@ function App() {
           {/*Add the appropriate links when the pages are created*/}
           <a href="App"> Leaderboard </a>
           <a href="App"> Profile </a>
-          <a href="App"> About </a>
+          <a href="App"> Getting Started </a>
           <a href="App"> Home </a>
       </div>
       <div id="title" className="center">
@@ -20,7 +26,17 @@ function App() {
         <p className="text">
             Welcome to Calorie Clash! <br></br><br></br>
 
-            To learn more about how to use this site click below <br></br>
+            Are you having trouble getting into your workout groove? <br></br><br></br>
+
+            No worries because Calorie Clash has your back! <br></br><br></br>
+
+            Calorie Clash can help you track workouts and calories burned and 
+            find and match individuals as “rivals” to bolster fitness competition and comradery where many cannot find it. <br></br><br></br>
+
+
+            Interested? Click below to learn more! <br></br><br></br>
+
+            <button id="started" onClick={gettingStarted}>Get Started</button>
         </p>
       </div>
     </div>
