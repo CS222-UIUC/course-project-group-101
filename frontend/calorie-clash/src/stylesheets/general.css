@@ -1,0 +1,103 @@
+/* Parallax Scrolling Background*/
+/*Just found a random semi-fitting background image, feel free to change it*/
+body {
+    background-image: url(../img/background.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+  /* Navigation Bar Classes and Ids*/
+#navbar {
+    background-color: #101B37;
+    opacity: 0.9;
+    z-index: 100;
+}
+  
+/** Width is set with the assumption that 
+there are 3 links in the navbar  so change if needed**/
+#navbar a {
+    float: right;
+    display: block;
+    margin: auto;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    text-decoration: none;
+    font-size: 16;
+    width: 10%;
+}
+  
+#navbar a:hover {
+    background: #01C8EE;
+    color: black;
+}	
+  
+.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 99.7%;
+}
+  
+
+/*For the button */
+#started {
+    width: 150px;
+    height: 80px;
+    font-size: 20px;
+    padding: 5px 5px;
+    border-radius: 20px 20px;
+    background-color:#302f4d;
+    color:white;
+    border: solid white 2px;
+    box-shadow: 0px 0px 2px 2px rgb(0,0,0);
+}
+
+#started:hover {
+    background-color:#b8b5fc;
+    color:black;
+    border: solid black 2px;
+}
+
+/*Classes and IDs for all the text and main divs*/
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+#title {
+    background-color: #302f4d;
+    display: block;
+    opacity: 0.95;
+    margin-top: 100px;
+    overflow: auto;
+    height: auto;
+}
+  
+.projectname {
+    display: block;
+    font-size: 600%;
+    margin-top: 50px;
+    color: #f0d3f7;
+    text-align: center;
+}
+  
+.content {
+    padding: 1% 2%;
+    margin-top: 3%;
+    background-color: #a57982;
+    border: 2px solid white;
+    opacity: 0.95;
+    border-style: inset;
+    width: 90%;
+}
+.text {
+    font-size: 200%;
+    opacity: 1;
+    color: white;
+    text-align: center;
+}
