@@ -2,37 +2,89 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Parallax Scrolling Background*/
+/*Just found a random semi-fitting background image, feel free to change it*/
+body {
+  background-image: url("img/background.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+/* Navigation Bar Classes and Ids*/
+#navbar {
+  background-color: grey;
+  overflow: hidden;
+  z-index: 100;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+/** Width is set with the assumption that 
+there are 3 links in the navbar  so change if needed**/
+#navbar a {
+  float: left;
+  display: block;
+  margin: auto;
   color: white;
+  text-align: center;
+  padding: 20px;
+  text-decoration: none;
+  font-size: 16;
+  width: 30%;
 }
 
-.App-link {
-  color: #61dafb;
+#navbar a:hover {
+  background: white;
+  color: black;
+}	
+
+.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/*Classes and IDs for all the text and main divs*/
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#container {
+  background-color: lightgrey;
+  display: block;
+  margin-top: 70px;
+  margin-bottom: 30px;
+  padding: 3% 1%;
+  width: 80%;
+  border: 7px;
+  border-style: double;
+  border-color: black;
+  border-radius: 25px 25px;
+  overflow: auto;
+  height: auto;
+}
+
+.projectname {
+  display: block;
+  font-size: 450%;
+  margin-top: 2%;
+  color: black;
+  text-align: center;
+}
+
+.content {
+  padding: 1% 2%;
+margin-top: 3%;
+  background-color: white;
+  border: 5px solid grey;
+  border-radius: 25px 25px;
+  border-style: inset;
+  width: 80%;
+}
+.text {
+  font-size: 150%;
+  color: black;
+  text-align: center;
 }
