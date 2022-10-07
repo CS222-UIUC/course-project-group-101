@@ -1,9 +1,13 @@
 import './stylesheets/App.css';
 import './stylesheets/general.css';
+import Home from './pages/home';
+import Started from './pages/get-started';
+import Leaderboard from './pages/leaderboard';
+import Profile from './pages/profile';
 
 /*Opens the getting started page (add correct link when made)*/
 function gettingStarted() {
-  window.open(App, "_self");
+  window.open(Started, "_self");
 }
 
 /*The Home Page*/
@@ -12,10 +16,10 @@ function App() {
     <div className="App">
       <div id="navbar" className="sticky">
           {/*Add the appropriate links when the pages are created*/}
-          <a href="App"> Leaderboard </a>
-          <a href="App"> Profile </a>
-          <a href="App"> Getting Started </a>
-          <a href="App"> Home </a>
+          <a href="leaderboard"> Leaderboard </a>
+          <a href="profile"> Profile </a>
+          <a href="get-started"> Getting Started </a>
+          <a href="home"> Home </a>
       </div>
       <div id="title" className="center">
           {/*We can put a logo here when we have one*/}
