@@ -16,13 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from webapi import views
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('userprofiles/', views.UserProfileView.as_view(), name="userprofiles"),
     path('create-userprofile/', views.CreateUserProfileView.as_view(), name="createuserprofile"),
-    path('', views.index),
+    #path('', views.index),
     path('profile/', views.profile),
     path('leaderboard/', views.leaderboard),
     path('home/', views.home),
+    path('', TemplateView.as_view(template_name='index.html')),
 ]
