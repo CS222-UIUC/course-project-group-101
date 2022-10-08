@@ -20,7 +20,7 @@ def leaderboard(request, *args, **kwargs):
 
 from rest_framework import generics, status
 from .serializers import UserProfileSerializer, CreateUserProfileSerializer, LeaderboardSerializer
-from .models import UserProfile
+from .models import UserProfile, LeaderBoard
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -74,3 +74,13 @@ class CreateUserProfileView(APIView):
 class LeaderBoardView(generics.ListAPIView):
     queryset = UserProfile.objects.all().order_by('rank')
     serializer_class = LeaderboardSerializer
+
+def UpdateLeaderBoard(leaderboard, serializer):
+    leaderboard.rank = serializer.data.get('rank')
+    return leaderboard
+
+def CreateLeaderBoard(serializer):
+    first_name = serializer.data.get('first_name')
+    last_name = serializer.data.get('last_name')
+    rank = serializer.data.get('rank')
+    return (LeaderBoard(first_name=first_name, last_name=last_name, rank=rank))
