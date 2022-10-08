@@ -19,7 +19,7 @@ def leaderboard(request, *args, **kwargs):
 # HTTP request and response handling for user profiles
 
 from rest_framework import generics, status
-from .serializers import UserProfileSerializer, CreateUserProfileSerializer
+from .serializers import UserProfileSerializer, CreateUserProfileSerializer, LeaderboardSerializer
 from .models import UserProfile
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -71,3 +71,6 @@ class CreateUserProfileView(APIView):
 
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
 
+class LeaderBoardView(generics.ListAPIView):
+    queryset = UserProfile.objects.all().order_by('rank')
+    serializer_class = LeaderboardSerializer
