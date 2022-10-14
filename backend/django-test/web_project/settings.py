@@ -58,7 +58,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            #'templates',
+            'templates',
             os.path.join(BASE_DIR, '../../frontend/calorie-clash/build'),
             ],
         'APP_DIRS': True,
