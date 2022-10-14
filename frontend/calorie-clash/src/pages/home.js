@@ -1,20 +1,19 @@
-import React from 'react';
+import '../stylesheets/App.css';
+import '../stylesheets/general.css';
+//import Started from './get-started';
 
 /*Opens the getting started page (add correct link when made)*/
 // function signup() {
 //   window.open(App, "_self");
 // }
   
+/*Opens the getting started page (add correct link when made)*/
+//function gettingStarted() {
+//}
+
 const Home = () => {
   return (
     <div className="App">
-      <div id="navbar" className="sticky">
-          {/*Add the appropriate links when the pages are created*/}
-          <a href="leaderboard"> Leaderboard </a>
-          <a href="profile"> Profile </a>
-          <a href="get-started"> Getting Started </a>
-          <a href="home"> Home </a>
-      </div>
       <div id="title" className="center">
           {/*We can put a logo here when we have one*/}
           <h1 className="center projectname"> Calorie Clash </h1>
@@ -34,7 +33,7 @@ const Home = () => {
 
             Interested? Click below to learn more! <br></br><br></br>
 
-            <button id="started" onClick={gettingStarted}>Get Started</button>
+            <button id="started">Get Started</button>
         </p>
       </div>
     </div>
