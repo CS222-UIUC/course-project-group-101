@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('userprofiles/', views.UserProfileView.as_view(), name="userprofiles"),
     path('create-userprofile/', views.CreateUserProfileView.as_view(), name="createuserprofile"),
+    path('userprofile/<int:uid>/', views.GetDeleteUserProfileView.as_view(), name="userprofile"),
     #path('', views.index),
     path('profile/', views.profile),
     path('leaderboard/', views.leaderboard),
