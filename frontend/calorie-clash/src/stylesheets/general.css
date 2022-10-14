@@ -101,3 +101,12 @@ there are 3 links in the navbar  so change if needed**/
     color: white;
     text-align: center;
 }
+
+.subheader {
+    display: block;
+    font-size: 400%;
+    margin-top: 50px;
+    color: #f0d3f7;
+    text-align: center;
+}
+
