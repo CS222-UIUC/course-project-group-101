@@ -23,9 +23,9 @@ urlpatterns = [
     path('userprofiles/', views.UserProfileView.as_view(), name="userprofiles"),
     path('create-userprofile/', views.CreateUserProfileView.as_view(), name="createuserprofile"),
     path('userprofile/<int:uid>/', views.GetDeleteUserProfileView.as_view(), name="userprofile"),
-    #path('', views.index),
     path('profile/', views.profile),
     path('leaderboard/', views.leaderboard),
     path('home/', views.home),
     path('', TemplateView.as_view(template_name='index.html')),
+    path('<int:uid>/user/', views.user_detail, name='user'),
 ]

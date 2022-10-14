@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 
 # Create your views here.
 
@@ -19,12 +19,20 @@ def leaderboard(request, *args, **kwargs):
 # HTTP request and response handling for user profiles
 
 from rest_framework import generics, status
-from .serializers import UserProfileSerializer, UserProfileSerializer
-from .models import UserProfile
+from .serializers import UserProfileSerializer, UserProfileSerializer, LeaderboardSerializer
+from .models import UserProfile, Question
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
 # View for listing all user profiles
+def user_detail(request, uid):
+    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    context = {'latest_question_list': latest_question_list}
+    return render(request, 'user.html', context)
+
+class LeaderBoardView(generics.ListAPIView):
+    queryset = UserProfile.objects.all().order_by('rank')
+    serializer_class = LeaderboardSerializer
 
 class UserProfileView(generics.ListAPIView):
     queryset = UserProfile.objects.all().order_by('uid')
