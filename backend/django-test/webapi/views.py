@@ -30,9 +30,9 @@ def user_detail(request, uid):
     context = {'latest_question_list': latest_question_list}
     return render(request, 'user.html', context)
 
-class LeaderBoardView(generics.ListAPIView):
-    queryset = UserProfile.objects.all().order_by('rank')
-    serializer_class = LeaderboardSerializer
+# class LeaderBoardView(generics.ListAPIView):
+#     queryset = UserProfile.objects.all().order_by('rank')
+#     serializer_class = LeaderboardSerializer
 
 class UserProfileView(generics.ListAPIView):
     queryset = UserProfile.objects.all().order_by('uid')
