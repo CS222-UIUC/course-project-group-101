@@ -15,11 +15,11 @@ const Profile = () => {
       <div className = "content center">
         <h1>Log in to view your profile stats</h1>
       </div>
-      <div class="center content">
-          <h2 class="center subheader">Info</h2>
-          <p class="text">
+      <div className="center content">
+          <h2 className="center subheader">Info</h2>
+          <p className="text">
               Click below to log your calories burned today! <br></br>
-              <Link id="started" to="/log-calories">Log Calories</Link>
+              <Link className= "center lbutton" to="/log-calories">Log Calories</Link>
           </p>
       </div>
     </div>

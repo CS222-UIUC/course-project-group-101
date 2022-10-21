@@ -44,10 +44,13 @@ there are 3 links in the navbar  so change if needed**/
   
 
 /*For the button */
-#started {
+.lbutton {
+    display: block;
+    margin-top: 40px;
     width: 150px;
-    height: 80px;
+    line-height: 40px;
     font-size: 20px;
+    text-decoration: none;
     padding: 5px 5px;
     border-radius: 20px 20px;
     background-color:#302f4d;
@@ -56,7 +59,7 @@ there are 3 links in the navbar  so change if needed**/
     box-shadow: 0px 0px 2px 2px rgb(0,0,0);
 }
 
-#started:hover {
+.lbutton:hover {
     background-color:#b8b5fc;
     color:black;
     border: solid black 2px;

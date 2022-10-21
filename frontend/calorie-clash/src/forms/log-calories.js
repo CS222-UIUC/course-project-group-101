@@ -36,7 +36,7 @@ class LogCalories extends React.Component {
                 <div className="center content">
                     <form onSubmit={this.handleSubmit}>       
                         <label for = "calories"> Number of calories burned: </label>  
-                        <input id = "calories" type="number" value={this.state.calories_burned} onChange={this.handleChange} />      
+                        <input id = "calories" type="number" min = "0" value={this.state.calories_burned} onChange={this.handleChange} />      
                         <p className='text'>
                             Add calorie calculation reference guide here
                         </p>
