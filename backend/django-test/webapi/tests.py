@@ -79,5 +79,46 @@ class UserProfileAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(models.UserProfile.objects.all().count(), count)
 
+# Testing get for leaderboard
+class LeaderboardAPITestCase(APITestCase):
+    def test_get_empty(self):
+        response = self.client.get(reverse('get-leaderboard'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsInstance(response.data, list)
+
+    def test_get_some(self):
+        sample_profile_min = {"uid": 1, "first_name": "Benjamin", "last_name": "Guan"}
+        self.client.post(reverse("createuserprofile"), sample_profile_min)
+        sample_profile_min1 = {"uid": 2, "first_name": "Ben", "last_name": "G"}
+        self.client.post(reverse("createuserprofile"), sample_profile_min1)
+        sample_profile_min2 = {"uid": 3, "first_name": "Benjamin", "last_name": "Smith"}
+        self.client.post(reverse("createuserprofile"), sample_profile_min2)
+
+        response = self.client.get(reverse('get-leaderboard'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsInstance(response.data, list)
+        self.assertEqual(len(response.data), models.UserProfile.objects.all().count())
+
+    def test_order(self):
+        sample_profile_min = {"uid": 2, "first_name": "Benjamin", "last_name": "Guan", "calories_burned_today": 44}
+        self.client.post(reverse("createuserprofile"), sample_profile_min)
+        sample_profile_min1 = {"uid": 3, "first_name": "Ben", "last_name": "G", "calories_burned_today": 43, "total_calories_burned": 4444}
+        self.client.post(reverse("createuserprofile"), sample_profile_min1)
+        sample_profile_min2 = {"uid": 1, "first_name": "Benjamin", "last_name": "Smith"}
+        self.client.post(reverse("createuserprofile"), sample_profile_min2)        
+
+        response = self.client.get(reverse('get-leaderboard'))
+        self.assertEqual(len(response.data), models.UserProfile.objects.all().count())
+        self.assertEqual(response.data[0]["calories_burned_today"], 44)
+        self.assertEqual(response.data[1]["calories_burned_today"], 43)
+        self.assertEqual(response.data[2]["calories_burned_today"], None)
+    
+    def test_topten(self):
+        for i in range(11):
+            sample_profile = {"uid": i, "first_name": "Benjamin", "last_name": "Guan", "calories_burned_today": 0 + i}
+            self.client.post(reverse("createuserprofile"), sample_profile)
+
+        response = self.client.get(reverse('get-leaderboard'))
+        self.assertEqual(len(response.data), 10)
 
 

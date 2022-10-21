@@ -39,11 +39,11 @@ class Choice(models.Model):
     def __str__(self):
         return self.choice_text
 
-class LeaderBoard(models.Model):
-    first_name = models.CharField(max_length=60)
-    last_name = models.CharField(max_length=60)
+# class LeaderBoard(models.Model):
+#     first_name = models.CharField(max_length=60)
+#     last_name = models.CharField(max_length=60)
 
-    rank = models.IntegerField(blank=True, null=True)
+#     rank = models.IntegerField(blank=True, null=True)
 
-    def __str__(self):
-        return self.first_name + " " + self.last_name
+#     def __str__(self):
+#         return self.first_name + " " + self.last_name

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import UserProfile, LeaderBoard
+from .models import UserProfile
 
 # Serializes a UserProfile to JSON format for responses
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -9,5 +9,5 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 class LeaderboardSerializer(serializers.ModelSerializer):
     class Meta:
-        model = LeaderBoard
-        fields = ('first_name', 'last_name', 'rank')
+        model = UserProfile
+        fields = ('first_name', 'last_name', 'calories_burned_today', 'total_calories_burned')
