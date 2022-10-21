@@ -1,4 +1,6 @@
 import React from 'react';
+import '../stylesheets/App.css';
+import '../stylesheets/general.css';
 
 /*Opens the getting started page (add correct link when made)*/
 // function signup() {
@@ -7,8 +9,10 @@ import React from 'react';
   
 const Leaderboard = () => {
   return (
-    <div>
-      <h1>Learn more here!</h1>
+    <div className="App">
+      <div className = "content center">
+        <h1>Here are the top 10 calorie burners across the world!</h1>
+      </div>
     </div>
   );
 };
