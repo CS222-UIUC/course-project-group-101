@@ -49,5 +49,7 @@ jobs:
           
       - name: Runs Test Coverage with Coverage.py
         run: |
+          cd backend
+          cd django-test
           coverage run -a -m pytest
           coverage report -m --fail-under=70
