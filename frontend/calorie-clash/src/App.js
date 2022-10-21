@@ -16,9 +16,11 @@ function App() {
 return (
     <Router>
     <Navbar />
+    
     <Routes>
         {/* <Route exact path='/' exact element={<Home/>} /> */}
         <Route path='/home' element={<Home/>} />
+        <Route path='' element={<Home/>} />
         <Route path='/get-started' element={<Started/>} />
         <Route path='/leaderboard' element={<Leaderboard/>} />
         <Route path='/profile' element={<Profile/>} />
@@ -29,11 +31,6 @@ return (
 }
   
 export default App;
-
-/*Opens the getting started page (add correct link when made)*/
-function gettingStarted() {
-  window.open(Started, "_self");
-}
 
 /*The Home Page*/
 // function App() {
