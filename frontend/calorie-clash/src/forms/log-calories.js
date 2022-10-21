@@ -1,4 +1,7 @@
 import React from 'react';
+import '../stylesheets/App.css';
+import '../stylesheets/general.css';
+import '../stylesheets/form.css';
 
 //Used https://reactjs.org/docs/forms.html for reference
 
@@ -14,7 +17,7 @@ class LogCalories extends React.Component {
 
     //Handles when form input boxes are changed
     handleChange(event) {    
-        this.setState({calories_burned: event.target.calories_burned});  
+        this.setState({calories_burned: event.target.value});  
     }
 
     //Handles when the form is submitted
@@ -26,13 +29,23 @@ class LogCalories extends React.Component {
     //What the form looks like
     render() {
         return (
-          <form onSubmit={this.handleSubmit}>       
-           <label>
-              Number of calories burned:
-              <input type="number" value={this.state.calories_burned} onChange={this.handleChange} />        
-            </label>
-            <input type="submit" value="Submit" />
-          </form>
+            <div className='App'>
+                <div id="title" class="center">
+                    <h1 class="center projectname"> Log Calories </h1>
+                </div>
+                <div className="center content">
+                    <form onSubmit={this.handleSubmit}>       
+                        <label for = "calories"> Number of calories burned: </label>  
+                        <input id = "calories" type="number" value={this.state.calories_burned} onChange={this.handleChange} />      
+                        <p className='text'>
+                            Add calorie calculation reference guide here
+                        </p>
+                        <input type="submit" value="Submit" />
+                    </form>
+                </div>
+            </div>
         );
     }   
 }
+
+export default LogCalories;

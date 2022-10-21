@@ -1,0 +1,45 @@
+/*Styles the basic object of the form (submit buttons, input fields, labels)*/
+label {
+    font-size: 170%;
+    opacity: 1;
+    color: white;
+    text-align: center;
+    padding: 2% 2%;
+}
+
+/**Used https://www.w3schools.com/css/css_form.asp for reference**/
+input[type=text], select {
+    width: 50%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+    padding: 12px 20px;
+    margin: 10px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=number], select {
+    width: 50%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+    padding: 12px 20px;
+    margin: 10px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    opacity: 1;
+    width: 50%;
+    background-color: #302f4d;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
