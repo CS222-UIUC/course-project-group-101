@@ -27,18 +27,27 @@ jobs:
 
       # Runs a single command using the runners shell
       
-      - name: Runs Python tests
+      - name: Install all needed modules
         run: |
-          python -m unittest $(git ls-files '*.py')
-        
-      - name: Test Coverage with Coverage.py
-        run: |
+          pip install django
+          pip install djangorestframework
+          pip install pytest
+          pip install pytest-django
           pip install coverage
-          coverage run -a -m unittest $(git ls-files '*.py')
-          coverage report -m --fail-under=70
-      
-      - name: Checks if code follows PEP8 style guide 
-        run: |
           pip install pylint
           pip install pylint-fail-under
-          pylint --disable=C0103,C0116,C0114,C0115 --fail-under=7 $(git ls-files '*.py')
+          
+      - name: Checks if code follows PEP8 style guide 
+        run: |
+          pylint --disable=C0103,C0116,C0114,C0115,R0801,W0611,C0304,R0901,C0301,E0307,R0903,E1101,W0613,C0413 --fail-under=7 $(git ls-files '*.py')
+          
+      - name: Runs Python tests
+        run: |
+          cd backend
+          cd django-test
+          pytest
+          
+      - name: Runs Test Coverage with Coverage.py
+        run: |
+          coverage run -a -m pytest
+          coverage report -m --fail-under=70
