@@ -41,15 +41,10 @@ jobs:
         run: |
           pylint --disable=C0103,C0116,C0114,C0115,R0801,W0611,C0304,R0901,C0301,E0307,R0903,E1101,W0613,C0413 --fail-under=7 $(git ls-files '*.py')
           
-      - name: Runs Python tests
+      - name: Runs Python tests and Coverage Check
         run: |
           cd backend
           cd django-test
           pytest
-          
-      - name: Runs Test Coverage with Coverage.py
-        run: |
-          cd backend
-          cd django-test
-          coverage run -a -m pytest
+          coverage run -m pytest
           coverage report -m --fail-under=70
