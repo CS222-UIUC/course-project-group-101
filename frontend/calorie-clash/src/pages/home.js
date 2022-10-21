@@ -1,3 +1,4 @@
+import { NavLink as Link } from "react-router-dom";
 import '../stylesheets/App.css';
 import '../stylesheets/general.css';
 //import Started from './get-started';
@@ -31,9 +32,9 @@ const Home = () => {
             find and match individuals as “rivals” to bolster fitness competition and comradery where many cannot find it. <br></br><br></br>
 
 
-            Interested? Click below to learn more! <br></br><br></br>
+            Interested? Click below to learn more! <br></br>
 
-            <button id="started">Get Started</button>
+            <Link className= "center lbutton" to="/get-started">Get Started</Link>
         </p>
       </div>
     </div>

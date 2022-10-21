@@ -9,29 +9,28 @@ import React from 'react';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Routes, Route}
     from 'react-router-dom';
+import LogCalories from './forms/log-calories';
 // import Home from './pages';
   
 function App() {
 return (
     <Router>
     <Navbar />
+    
     <Routes>
         {/* <Route exact path='/' exact element={<Home/>} /> */}
         <Route path='/home' element={<Home/>} />
+        <Route path='' element={<Home/>} />
         <Route path='/get-started' element={<Started/>} />
         <Route path='/leaderboard' element={<Leaderboard/>} />
         <Route path='/profile' element={<Profile/>} />
+        <Route path='/log-calories' element={<LogCalories/>} />
     </Routes>
     </Router>
 );
 }
   
 export default App;
-
-/*Opens the getting started page (add correct link when made)*/
-function gettingStarted() {
-  window.open(Started, "_self");
-}
 
 /*The Home Page*/
 // function App() {
