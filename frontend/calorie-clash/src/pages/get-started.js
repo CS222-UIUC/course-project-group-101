@@ -11,7 +11,7 @@ const Started = () => {
   return (
     <div className="App">
       <div className = "content center">
-        <h1>Learn more here!</h1>
+        <h1>Sign in or create a new account to begin your rivalry!</h1>
       </div>
     </div>
   );
