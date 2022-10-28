@@ -1,57 +1,47 @@
 import React from 'react';
 import '../stylesheets/App.css';
 import '../stylesheets/general.css';
-
-/*Opens the getting started page (add correct link when made)*/
-// function signup() {
-//   window.open(App, "_self");
-// }
   
 const Started = () => {
   return (
     <div className="App">
-      <div className = "content center">
-        <h1>Sign in or create a new account to begin your rivalry!</h1>
+      <div id="title" className="center">
+            <h1 className="center projectname"> Getting Started</h1>
+      </div>
+      <div className="center content">
+            <h2 className="center subheader">How to Register</h2>
+            <p className="text">
+                To make a profile that stores all your stats, 
+                you have to make an account so that we can get you up and running in the system. <br></br><br></br>
+    
+                Click below to register ! <br></br>
+                
+                <button className = "lbutton center">Register</button>
+            </p>
+      </div>
+      <div className="center content">
+          <h2 className="center subheader">How to Navigate</h2>
+          <p className="text">
+              Most of the main pages that are important are in the navigation bar above. <br></br>
+
+              If you haven't logged in yet, most of these pages will redirect you to the login page!<br></br>
+          </p>
+          <h3 className="center subheader2">Home</h3>
+          <p className="text">
+              Welcome page! <br></br>
+          </p>
+          <h3 className="center subheader2">Leaderboard</h3>
+          <p className="text">
+              This is where you can see a leaderboard of the global top users and how you match up against them. <br></br>
+          </p>
+          <h3 className="center subheader2">Profile</h3>
+          <p className="text">
+            This is where you can view your current profile stats, log your progress, and check in on your rival.
+            You can also edit your public profile details here too. <br></br>
+          </p>
       </div>
     </div>
   );
 };
   
 export default Started;
-
-/*The Home Page*/
-// function Started() {
-//   return (
-//     <div className="App">
-//       <div id="navbar" className="sticky">
-//           {/*Add the appropriate links when the pages are created*/}
-//           <a href="App"> Leaderboard </a>
-//           <a href="App"> Profile </a>
-//           <a href="get-started"> Getting Started </a>
-//           <a href="App"> Home </a>
-//       </div>
-//       <div id="title" className="center">
-//           {/*We can put a logo here when we have one*/}
-//           <h1 className="center projectname"> Calorie Clash </h1>
-//       </div>
-//       {/*Put welcome message + basic info about web app*/}
-//       <div className="center content">
-//         <p className="text">
-//             Welcome to Calorie Clash! <br></br><br></br>
-
-//             To begin, first go to our sign up page. <br></br><br></br>
-
-//             There, you can put in workout and physical information, which we will use to match you up with your rival! <br></br><br></br>
-
-//             Want to see your rank locally or around the world? Check out our leaderboard to see how you stack up to the competition! <br></br><br></br>
-
-//             Interested? Click below to get started! <br></br><br></br>
-
-//             <button id="Sign Me Up!" onClick={signup}>Sign Up</button>
-//         </p>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Started;
