@@ -24,6 +24,22 @@ class LogCalories extends React.Component {
     handleSubmit(event) {
         alert('Amount of calories burned submitted: ' + this.state.calories_burned);
         event.preventDefault();
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(
+            {
+                "uid": 69,
+                "first_name": "Benjamin",
+                "last_name": "Guan",
+                "pronouns": "he/him",
+                "calories_burned_today": this.state.calories_burned
+            })
+        };
+        fetch('http://127.0.0.1:8000/create-userprofile/', requestOptions)
+            .then(response => response.json())
+            .then(data => this.setState({ postId: data.id }));
+        // alert("Handled submit");
     }
 
     //What the form looks like
