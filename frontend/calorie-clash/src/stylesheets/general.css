@@ -121,3 +121,13 @@ there are 3 links in the navbar  so change if needed**/
     text-align: center;
 }
 
+.leaderboard {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+th, td {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
