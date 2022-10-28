@@ -1,6 +1,21 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.contrib import messages
+from forms import RegisterUserForm
 
 # Create your views here.
+def register_user(request):
+    if request.method == "POST":
+        form = RegisterUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Registration Successful.")
+            return redirect("")
+        messages.error(request, "Unsuccessful registration.")
+    form = RegisterUserForm()
+    return render(request=request, template_name="registration/signup.html", context={"form":form})
 
 # Rendering webpages
 
