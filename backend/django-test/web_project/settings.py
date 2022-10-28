@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -60,7 +60,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             'templates',
-            os.path.join(BASE_DIR, '../../frontend/calorie-clash/build'),
+            os.path.join(BASE_DIR, "frontend", "calorie-clash", "build"),
             ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -130,7 +130,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, '../../frontend/calorie-clash/build/static')
+    os.path.join(BASE_DIR, 'frontend', 'calorie-clash','build', 'static')
 ]
 
 LOGIN_REDIRECT_URL = "/"
