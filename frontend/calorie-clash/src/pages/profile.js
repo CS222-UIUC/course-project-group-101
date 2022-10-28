@@ -12,15 +12,25 @@ import '../forms/log-calories'
 const Profile = () => {
   return (
     <div className="App">
-      <div className = "content center">
-        <h1>Log in to view your profile stats</h1>
+      <div id="title" class="center">
+          <h1 class="center projectname">Profile</h1>
       </div>
-      <div className="center content">
-          <h2 className="center subheader">Info</h2>
+      {/* Only show when logged in when we figure out how to check if logged in*/}
+      <div class="center content">
+          <h2 class="center subheader">Info</h2>
+          <p class="text">
+              Insert current public profile info here <br></br>
+              <button className="lbutton center">Edit</button>
+          </p>
           <p className="text">
               Click below to log your calories burned today! <br></br>
               <Link className= "center lbutton" to="/log-calories">Log Calories</Link>
           </p>
+      </div>
+
+      {/* Show when not logged in when we figure out how to check if logged in*/}
+      <div className = "content center">
+        <p className = "text">Log in to view your profile stats</p>
       </div>
     </div>
   );
