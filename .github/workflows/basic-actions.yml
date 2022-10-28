@@ -36,6 +36,7 @@ jobs:
           pip install coverage
           pip install pylint
           pip install pylint-fail-under
+          pip install django-cors-headers
           
       - name: Checks if code follows PEP8 style guide 
         run: |
