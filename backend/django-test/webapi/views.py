@@ -34,7 +34,7 @@ def leaderboard(request, *args, **kwargs):
 # HTTP request and response handling for user profiles
 
 from rest_framework import generics, status
-from .serializers import UserProfileSerializer, LeaderboardSerializer
+from .serializers import UserProfileSerializer, LeaderboardSerializer, CalorieUpdateSerializer
 from .models import UserProfile, Question
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -102,7 +102,7 @@ class CreateUserProfileView(APIView):
 
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
 
-# View for getting or deleting specific user profile
+# View for getting, deleting, or updating calories for a specific user profile
 
 class GetDeleteUserProfileView(APIView):
     def get(self, request, uid):
@@ -113,3 +113,15 @@ class GetDeleteUserProfileView(APIView):
     def delete(self, request, uid):
         user_profile = UserProfile.objects.filter(uid=uid).delete()
         return Response(status=status.HTTP_200_OK)
+    
+    def post(self, request, uid):
+        serializer = CalorieUpdateSerializer(data=request.data)
+        if serializer.is_valid():
+            queryset = UserProfile.objects.filter(uid=uid)
+            user_profile = queryset[0]
+            user_profile.calories_burned_today = serializer.data.get('calories_burned_today')
+            user_profile.UpdateTotalCalories()
+            user_profile.save(update_fields=['calories_burned_today', 'total_calories_burned'])
+            return Response({'Calories updated successfully'}, status=status.HTTP_200_OK)
+
+        return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)

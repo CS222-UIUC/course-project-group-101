@@ -11,3 +11,8 @@ class LeaderboardSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = ('first_name', 'last_name', 'calories_burned_today', 'total_calories_burned')
+
+class CalorieUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ('uid', 'calories_burned_today')
