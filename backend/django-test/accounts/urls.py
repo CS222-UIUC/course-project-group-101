@@ -5,5 +5,5 @@ from webapi.views import register_user
 
 
 urlpatterns = [
-    path("signup/", register_user, name="signup"),
+    path("signup/", SignUpView.as_view(), name="signup"),
 ]

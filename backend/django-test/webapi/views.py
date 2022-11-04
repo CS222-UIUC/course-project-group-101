@@ -12,7 +12,7 @@ def register_user(request):
             user = form.save()
             login(request, user)
             messages.success(request, "Registration Successful.")
-            return redirect("")
+            return redirect("/")
         messages.error(request, "Unsuccessful registration.")
     form = RegisterUserForm()
     return render(request=request, template_name="registration/signup.html", context={"form":form})
