@@ -5,11 +5,13 @@ import Started from './pages/get-started';
 import Leaderboard from './pages/leaderboard';
 import Profile from './pages/profile';
 
+import LogCalories from './forms/log-calories';
+import EditProfile from './forms/edit-profile';
+
 import React from 'react';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Routes, Route}
     from 'react-router-dom';
-import LogCalories from './forms/log-calories';
 // import Home from './pages';
   
 function App() {
@@ -25,6 +27,7 @@ return (
         <Route path='/leaderboard' element={<Leaderboard/>} />
         <Route path='/profile' element={<Profile/>} />
         <Route path='/log-calories' element={<LogCalories/>} />
+        <Route path='/edit-profile' element={<EditProfile/>} />
     </Routes>
     </Router>
 );
