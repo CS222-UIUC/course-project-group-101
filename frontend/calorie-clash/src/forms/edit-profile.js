@@ -21,7 +21,6 @@ class EditProfile extends React.Component {
 
     //Handles when the form is submitted
     handleSubmit(event) {
-        alert("Changes Recorded!");
         event.preventDefault();
         const requestOptions = {
             method: 'POST',
@@ -41,6 +40,7 @@ class EditProfile extends React.Component {
         fetch('http://127.0.0.1:8000/create-userprofile/', requestOptions)
             .then(response => response.json())
             .then(data => this.setState({ postId: data.id }));
+        alert("Changes Recorded!");
         window.open("/profile", "_self");
     }
 
