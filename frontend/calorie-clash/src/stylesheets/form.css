@@ -9,7 +9,7 @@ label {
 
 /**Used https://www.w3schools.com/css/css_form.asp for reference**/
 input[type=text], select {
-    width: 50%;
+    width: 30%;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 20px;
     padding: 12px 20px;
