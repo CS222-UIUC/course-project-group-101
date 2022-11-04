@@ -20,7 +20,7 @@ const Profile = () => {
           <h2 class="center subheader">Info</h2>
           <p class="text">
               Insert current public profile info here <br></br>
-              <button className="lbutton center">Edit</button>
+              <Link className= "center lbutton" to="/edit-profile">Edit</Link>
           </p>
           <p className="text">
               Click below to log your calories burned today! <br></br>
