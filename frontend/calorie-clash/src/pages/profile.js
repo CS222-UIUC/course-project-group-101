@@ -30,7 +30,11 @@ const Profile = () => {
 
       {/* Show when not logged in when we figure out how to check if logged in*/}
       <div className = "content center">
-        <p className = "text">Log in to view your profile stats</p>
+        {/* <p className = "text">Log in to view your profile stats</p> */}
+        <p className="text">
+              Click below to check out your profile! <br></br>
+              <Link className= "center lbutton" to="/profile-info">Profile Info</Link>
+          </p>
       </div>
     </div>
   );
