@@ -18,6 +18,9 @@ def register_user(request):
     return render(request=request, template_name="registration/signup.html", context={"form":form})
 
 # Rendering webpages
+def view_foo(request):
+    user_profile = request.user.get_profile()
+    url = user_profile.url
 
 def index(request, *args, **kwargs):
     return render(request, "index.html")
