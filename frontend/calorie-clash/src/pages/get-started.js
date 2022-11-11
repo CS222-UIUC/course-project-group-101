@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink as Link } from "react-router-dom";
 import '../stylesheets/App.css';
 import '../stylesheets/general.css';
   
@@ -16,7 +17,7 @@ const Started = () => {
     
                 Click below to register ! <br></br>
                 
-                <button className = "lbutton center">Register</button>
+                <Link className= "center lbutton" to="/signup">Sign Up</Link>
             </p>
       </div>
       <div className="center content">
