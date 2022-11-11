@@ -2,6 +2,7 @@ import React from 'react';
 import '../stylesheets/App.css';
 import '../stylesheets/general.css';
 import '../stylesheets/signup.css';
+import { Link } from 'react-router-dom';
 
 //Used https://reactjs.org/docs/forms.html for reference
 
@@ -84,6 +85,8 @@ class Signup extends React.Component {
                     <h1 class="center projectname"> Sign Up </h1>
                 </div>
                 <div className="center thin content">
+                    Already have an account?
+                    <Link className= "center lbutton" to="/login">Login</Link>
                     <form className ="left" onSubmit={this.handleSubmit}>       
                         <label for = "username"> Username: (150 characters or fewer)</label>  <br></br>
                         <input name = "username" placeholder="Username" type="text" maxlength = "150" value={this.state.username} onChange={this.handleChange} required/> <br></br>    
