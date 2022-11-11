@@ -10,7 +10,7 @@ class CustomUser(AbstractUser):
         return self.username
 
 class UserProfile(models.Model):
-    uid = models.ForeignKey(CustomUser, unique=True, on_delete=models.CASCADE)
+    # uid = models.ForeignKey(CustomUser, unique=True, null=True, on_delete=models.SET_NULL)
     first_name = models.CharField(max_length=60)
     last_name = models.CharField(max_length=60)
     pronouns = models.CharField(max_length=30, blank=True, null=True)
