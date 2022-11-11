@@ -41,12 +41,16 @@ from .serializers import UserProfileSerializer, LeaderboardSerializer, CalorieUp
 from .models import UserProfile, Question
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.contrib.auth import get_user_model
 
-# View for listing all user profiles
+User = get_user_model()
+
 def user_detail(request, uid):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     context = {'latest_question_list': latest_question_list}
     return render(request, 'user.html', context)
+
+# View for listing all user profiles
 
 class LeaderboardView(generics.ListAPIView):
     queryset = UserProfile.objects.all().order_by('-calories_burned_today')[:10]
@@ -67,7 +71,7 @@ def UpdateProfile(user_profile, serializer):
     user_profile.UpdateTotalCalories()
     return user_profile
 
-def CreateProfile(serializer):
+def CreateProfile(serializer, User):
     uid = serializer.data.get('uid')
     first_name = serializer.data.get('first_name')
     last_name = serializer.data.get('last_name')
@@ -76,7 +80,7 @@ def CreateProfile(serializer):
     height_ft = serializer.data.get('height_ft')
     height_in = serializer.data.get('height_in')
     calories_burned_today = serializer.data.get('calories_burned_today')
-    return (UserProfile(uid=uid, first_name=first_name, last_name=last_name, pronouns=pronouns, weight=weight, height_ft=height_ft,
+    return (UserProfile(user=User, uid=uid, first_name=first_name, last_name=last_name, pronouns=pronouns, weight=weight, height_ft=height_ft,
         height_in=height_in, calories_burned_today=calories_burned_today, total_calories_burned=calories_burned_today))
 
 # View for creating / updating user profiles
@@ -99,7 +103,9 @@ class CreateUserProfileView(APIView):
                     'calories_burned_today', 'total_calories_burned'])
                 return Response(UserProfileSerializer(user_profile).data, status=status.HTTP_200_OK)
             else:
-                user_profile = CreateProfile(serializer)
+                # temp fields for email, username, and password, can add to serializer maybe
+                user = User.objects.create_user(first_name=serializer.data.get('first_name'), last_name=serializer.data.get('last_name'), email='benja1@gmail.com', password='chicken123451', username='benja1')
+                user_profile = CreateProfile(serializer, user)
                 user_profile.save()
                 return Response(UserProfileSerializer(user_profile).data, status=status.HTTP_201_CREATED)
 
