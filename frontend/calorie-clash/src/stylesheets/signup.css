@@ -11,6 +11,18 @@
     padding: 2%;
 }
 
+h2 {
+    color: #edfeff;
+    font-size: 200%;
+    margin-top: 50px;
+    text-align: center;
+}
+
+ul {
+    font-size: 150%;
+    color: #f2fbff;
+}
+
 /*Styles the label*/
 label {
     font-size: 170%;

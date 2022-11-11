@@ -8,7 +8,7 @@ import '../stylesheets/signup.css';
 class Signup extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {username: "", first_name: "", last_name: "", email: "", password: "", password_confirm: ""};
+        this.state = {username: "", first_name: "", last_name: "", email: "", password: "", password_confirm: "", valid: false};
         //Currently all changes and info is handled internally
         //Change this when figuring out how to link to django
         this.handleChange = this.handleChange.bind(this);
@@ -18,6 +18,15 @@ class Signup extends React.Component {
     //Handles when form input boxes are changed
     handleChange(event) {    
         this.setState({[event.target.name]: event.target.value});  
+        var pass = this.state.password;
+        //Checks if password meets requirements
+
+        //Used https://www.geeksforgeeks.org/validate-a-password-using-html-and-javascript/ for reference
+        if (pass.match(/[a-z]/g) && pass.match(/[A-Z]/g) && pass.match(/[0-9]/g) && pass.match(/[^a-zA-Z\d]/g) && pass.length >= 8) {
+                this.setState({valid: true});
+        } else {
+            this.setState({valid: false});
+        }
     }
 
     //Handles when the form is submitted
@@ -32,7 +41,36 @@ class Signup extends React.Component {
         if (this.state.password === this.state.password_confirm) {      
             not_match = <p className = "text"></p>;    
         } else {      
-            not_match = <p className = "text">Your passwords don't match!</p>;   ;    
+            not_match = <p className = "text">Your passwords don't match!</p>;
+        }
+
+        //Shows warnings based off if the password requirements are met
+        let has_lower;
+        if(this.state.password.match(/[a-z]/g)) {
+            has_lower = <p className = "text"></p>;
+        } else {
+            has_lower = <p className = "text">Your password needs a lowercase letter!</p>;
+        }
+
+        let has_upper;
+        if(this.state.password.match(/[A-Z]/g)) {
+            has_upper = <p className = "text"></p>;
+        } else {
+            has_upper = <p className = "text">Your password needs an uppercase letter!</p>;
+        }
+
+        let has_digit;
+        if(this.state.password.match(/[0-9]/g)) {
+            has_digit = <p className = "text"></p>;
+        } else {
+            has_digit = <p className = "text">Your password needs a digit!</p>;
+        }
+
+        let has_special;
+        if(this.state.password.match(/[^a-zA-Z\d]/g)) {
+            has_special = <p className = "text"></p>;
+        } else {
+            has_special = <p className = "text">Your password needs a special character!</p>;
         }
         return (
             <div className='App'>
@@ -52,13 +90,25 @@ class Signup extends React.Component {
 
                         <label for = "email"> Email: </label>  <br></br>
                         <input name = "email" type="email" placeholder="example@gmail.com" value={this.state.email} onChange={this.handleChange} required/> <br></br>
+                        
+                        <h2>Password Requirements:</h2>
+                        <ul>
+                            <li>Must contain at least 8 characters</li>
+                            <li>Must contain at least 1 upper and lower case letter</li>
+                            <li>Must contain at least 1 digit</li>
+                            <li>Must contain at least 1 special character</li>
+                        </ul>
 
                         <label for = "password"> Password: </label>  <br></br>
                         <input name = "password" type="password" value={this.state.password} onChange={this.handleChange} required/> <br></br>
 
                         <label for = "password_confirm"> Confirm Password: </label>  <br></br>
-                        <input name = "password_confirm" type="password"  value={this.state.password_confirm} onChange={this.handleChange} required/> <br></br>  
+                        <input name = "password_confirm" minlength = "8" type="password"  value={this.state.password_confirm} onChange={this.handleChange} required/> <br></br>  
                         {not_match}
+                        {has_lower}
+                        {has_upper}
+                        {has_digit}
+                        {has_special}
                         <input type="submit" value="Submit" />
                     </form>
                 </div>
