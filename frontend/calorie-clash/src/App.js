@@ -8,6 +8,7 @@ import ProfileInfo from './pages/profile-info';
 
 import LogCalories from './forms/log-calories';
 import EditProfile from './forms/edit-profile';
+import Signup from './forms/signup';
 
 import React from 'react';
 import Navbar from './components/Navbar';
@@ -30,6 +31,7 @@ return (
         <Route path='/log-calories' element={<LogCalories/>} />
         <Route path='/edit-profile' element={<EditProfile/>} />
         <Route path='/profile-info' element={<ProfileInfo/>} />
+        <Route path='/signup' element={<Signup/>} />
     </Routes>
     </Router>
 );
