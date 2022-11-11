@@ -8,7 +8,7 @@ import '../stylesheets/signup.css';
 class Signup extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {username: "", first_name: "", last_name: "", email: "", password: "", password_confirm: "", valid: false};
+        this.state = {username: "", first_name: "", last_name: "", email: "", password: "", password_confirm: ""};
         //Currently all changes and info is handled internally
         //Change this when figuring out how to link to django
         this.handleChange = this.handleChange.bind(this);
@@ -18,20 +18,26 @@ class Signup extends React.Component {
     //Handles when form input boxes are changed
     handleChange(event) {    
         this.setState({[event.target.name]: event.target.value});  
-        var pass = this.state.password;
-        //Checks if password meets requirements
-
-        //Used https://www.geeksforgeeks.org/validate-a-password-using-html-and-javascript/ for reference
-        if (pass.match(/[a-z]/g) && pass.match(/[A-Z]/g) && pass.match(/[0-9]/g) && pass.match(/[^a-zA-Z\d]/g) && pass.length >= 8) {
-                this.setState({valid: true});
-        } else {
-            this.setState({valid: false});
-        }
     }
 
     //Handles when the form is submitted
     handleSubmit(event) {
         event.preventDefault();
+        var valid = false;
+        var pass = this.state.password;
+        //Checks if password meets requirements
+        //Used https://www.geeksforgeeks.org/validate-a-password-using-html-and-javascript/ for reference
+        if (pass.match(/[a-z]/g) && pass.match(/[A-Z]/g) && pass.match(/[0-9]/g) && pass.match(/[^a-zA-Z\d]/g)) {
+            if(this.state.password === this.state.password_confirm) {
+                valid = true;
+            }
+        }
+        if(valid) {
+            alert("Information valid! Successfully Submitted!");
+            window.open("/profile", "_self");
+        } else {
+            alert("Error. Invalid information somewhere. Please try again.");
+        }
     }
 
     //What the form looks like
@@ -75,7 +81,7 @@ class Signup extends React.Component {
         return (
             <div className='App'>
                 <div id="title" class="center">
-                    <h1 class="center projectname"> Signup </h1>
+                    <h1 class="center projectname"> Sign Up </h1>
                 </div>
                 <div className="center thin content">
                     <form className ="left" onSubmit={this.handleSubmit}>       
