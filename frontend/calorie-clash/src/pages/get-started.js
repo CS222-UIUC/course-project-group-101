@@ -18,6 +18,10 @@ const Started = () => {
                 Click below to register ! <br></br>
                 
                 <Link className= "center lbutton" to="/signup">Sign Up</Link>
+
+                Already have an account? Login here ! <br></br>
+                
+                <Link className= "center lbutton" to="/login">Login</Link>
             </p>
       </div>
       <div className="center content">
