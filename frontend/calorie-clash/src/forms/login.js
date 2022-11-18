@@ -29,9 +29,9 @@ class Login extends React.Component {
 
         var valid = true;
         if(valid) {
-            //TODO: Change to correct username once the Django is connected
-            window.localStorage.setItem("Username", "username");
-            alert("Successfully logged in as " + window.localStorage.getItem("Username"));
+            //TODO: Change to correct UID once the Django is connected
+            window.localStorage.setItem("UID", 1);
+            alert("Successfully logged in! " + window.localStorage.getItem("UID"));
 
             window.open("/profile", "_self");
             
