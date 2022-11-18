@@ -4,7 +4,7 @@ from django.db import models
 class CustomUser(AbstractUser):
     height = models.IntegerField(blank=True, null=True)
     # add additional fields in here
-    profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
+    uid = models.IntegerField(null=True)
 
     def __str__(self):
         return self.username
