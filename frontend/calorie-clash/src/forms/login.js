@@ -24,7 +24,20 @@ class Login extends React.Component {
     //Handles when the form is submitted
     handleSubmit(event) {
         event.preventDefault();
-        //Checks if username and password exist
+
+        //TODO: Checks if username and password exist w/ Django
+
+        var valid = true;
+        if(valid) {
+            //TODO: Change to correct username once the Django is connected
+            window.localStorage.setItem("Username", "username");
+            alert("Successfully logged in as " + window.localStorage.getItem("Username"));
+
+            window.open("/profile", "_self");
+            
+        } else {
+            alert("Error: Your email or password was incorrect. Please try again.");
+        }
         
     }
 
@@ -45,10 +58,10 @@ class Login extends React.Component {
                         <input name = "password" type="password" value={this.state.password} onChange={this.handleChange} required/> <br></br>
                         <input type="submit" value="Submit" />
                     </form>
-                    Forgot password?
-                    <Link className= "center lbutton" to="/forgot-password">Forgot Password</Link>
-                    Don't have an account?
-                    <Link className= "center lbutton" to="/signup">Sign Up</Link>
+                    <p className="text">Forgot password?</p>
+                    <Link className= "center lbutton space" to="/forgot-password">Forgot Password</Link>
+                    <p className="text">Don't have an account?</p>
+                    <Link className= "center lbutton space" to="/signup">Sign Up</Link>
                 </div>
             </div>
         );
