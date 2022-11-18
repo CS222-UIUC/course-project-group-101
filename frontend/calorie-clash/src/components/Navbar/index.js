@@ -3,6 +3,13 @@ import { Nav, NavLink, NavMenu }
     from "./NavbarElements";
   
 const Navbar = () => {
+  //Changes from logout/login depending on if user is logged in or not
+  let login;
+  if(window.localStorage.getItem("UID") === null) {
+    login = <NavLink to="/login" activeStyle> Login </NavLink>
+  } else {
+    login = <NavLink to="/logout" activeStyle> Log Out </NavLink>
+  }
   return (
     <>
       <Nav>
@@ -19,9 +26,7 @@ const Navbar = () => {
           <NavLink to="/profile" activeStyle>
             Profile
           </NavLink>
-          <NavLink to="/login" activeStyle>
-            Login
-          </NavLink>
+          {login}
         </NavMenu>
       </Nav>
     </>
