@@ -37,7 +37,7 @@ def leaderboard(request, *args, **kwargs):
 # HTTP request and response handling for user profiles
 
 from rest_framework import generics, status
-from .serializers import UserProfileSerializer, LeaderboardSerializer, CalorieUpdateSerializer
+from .serializers import UserProfileSerializer, LeaderboardSerializer, CalorieUpdateSerializer, MatchingSerializer
 from .models import UserProfile, Question
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -55,6 +55,10 @@ def user_detail(request, uid):
 class LeaderboardView(generics.ListAPIView):
     queryset = UserProfile.objects.all().order_by('-calories_burned_today')[:10]
     serializer_class = LeaderboardSerializer
+
+class MatchingView(generics.ListAPIView):
+    queryset = UserProfile.objects.all().order_by('height_ft', 'height_in', 'weight')
+    serializer_class = MatchingSerializer
 
 class UserProfileView(generics.ListAPIView):
     queryset = UserProfile.objects.all().order_by('uid') 
