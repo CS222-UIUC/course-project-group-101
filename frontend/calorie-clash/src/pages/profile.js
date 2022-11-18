@@ -3,19 +3,17 @@ import { NavLink as Link } from "react-router-dom";
 import '../stylesheets/App.css';
 import '../stylesheets/general.css';
 import '../forms/log-calories'
-
-/*Opens the getting started page (add correct link when made)*/
-// function signup() {
-//   window.open(App, "_self");
-// }
   
 const Profile = () => {
+  //Redirects to login if not logged in
+  if(window.localStorage.getItem("UID") === null) {
+    window.open("/login", "_self");
+  }
   return (
     <div className="App">
       <div id="title" class="center">
           <h1 class="center projectname">Profile</h1>
       </div>
-      {/* Only show when logged in when we figure out how to check if logged in*/}
       <div class="center content">
           <h2 class="center subheader">Info</h2>
           <p class="text">
@@ -28,9 +26,7 @@ const Profile = () => {
           </p>
       </div>
 
-      {/* Show when not logged in when we figure out how to check if logged in*/}
       <div className = "content center">
-        {/* <p className = "text">Log in to view your profile stats</p> */}
         <p className="text">
               Click below to check out your profile! <br></br>
               <Link className= "center lbutton" to="/profile-info">Profile Info</Link>
