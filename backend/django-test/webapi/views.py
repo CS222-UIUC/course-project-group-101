@@ -37,20 +37,26 @@ def leaderboard(request, *args, **kwargs):
 # HTTP request and response handling for user profiles
 
 from rest_framework import generics, status
-from .serializers import UserProfileSerializer, LeaderboardSerializer, CalorieUpdateSerializer, MatchingSerializer
-from .models import UserProfile, Question
+from .serializers import CreateUserSerializer, UserProfileSerializer, LeaderboardSerializer, CalorieUpdateSerializer, MatchingSerializer
+from .models import UserProfile
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-def user_detail(request, uid):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    context = {'latest_question_list': latest_question_list}
-    return render(request, 'user.html', context)
-
 # View for listing all user profiles
+
+class CreateUserView(APIView):
+    def post(self, request):
+        serializer = CreateUserSerializer(data=request.data)
+        uid = serializer.data.get('uid')
+        queryset = UserProfile.objects.filter(uid=uid)
+        if serializer.is_valid():
+            user = User.objects.create_user(email=serializer.data.get('email'), password=serializer.data.get('password'), 
+                username=serializer.data.get('username'), uid=serializer.data.get('uid'))
+            return Response(CreateUserSerializer(user).data, status=status.HTTP_201_CREATED)
+        return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
 
 class LeaderboardView(generics.ListAPIView):
     queryset = UserProfile.objects.all().order_by('-calories_burned_today')[:10]
@@ -71,12 +77,9 @@ def UpdateProfile(user_profile, serializer):
     user_profile.weight = serializer.data.get('weight')
     user_profile.height_ft = serializer.data.get('height_ft')
     user_profile.height_in = serializer.data.get('height_in')
-    user_profile.calories_burned_today =  serializer.data.get('calories_burned_today')
-    user_profile.UpdateTotalCalories()
     return user_profile
 
-def CreateProfile(serializer, User):
-    uid = serializer.data.get('uid')
+def CreateProfile(serializer):
     first_name = serializer.data.get('first_name')
     last_name = serializer.data.get('last_name')
     pronouns = serializer.data.get('pronouns')
@@ -84,7 +87,7 @@ def CreateProfile(serializer, User):
     height_ft = serializer.data.get('height_ft')
     height_in = serializer.data.get('height_in')
     calories_burned_today = serializer.data.get('calories_burned_today')
-    return (UserProfile(user=User, uid=uid, first_name=first_name, last_name=last_name, pronouns=pronouns, weight=weight, height_ft=height_ft,
+    return (UserProfile(first_name=first_name, last_name=last_name, pronouns=pronouns, weight=weight, height_ft=height_ft,
         height_in=height_in, calories_burned_today=calories_burned_today, total_calories_burned=calories_burned_today))
 
 # View for creating / updating user profiles
@@ -98,24 +101,13 @@ class CreateUserProfileView(APIView):
     def post(self, request):
         serializer = UserProfileSerializer(data=request.data)
         if serializer.is_valid():
-            uid = serializer.data.get('uid')
-            queryset = UserProfile.objects.filter(uid=uid)
-            if queryset.exists():
-                user_profile = queryset[0]
-                user_profile = UpdateProfile(user_profile, serializer)
-                user_profile.save(update_fields=['first_name', 'last_name','pronouns', 'weight', 'height_ft', 'height_in', 
-                    'calories_burned_today', 'total_calories_burned'])
-                return Response(UserProfileSerializer(user_profile).data, status=status.HTTP_200_OK)
-            else:
-                # temp fields for email, username, and password, can add to serializer maybe
-                user = User.objects.create_user(first_name=serializer.data.get('first_name'), last_name=serializer.data.get('last_name'), email='benja1@gmail.com', password='chicken123451', username='benja1')
-                user_profile = CreateProfile(serializer, user)
-                user_profile.save()
-                return Response(UserProfileSerializer(user_profile).data, status=status.HTTP_201_CREATED)
+            user_profile = CreateProfile(serializer)
+            user_profile.save()
+            return Response(UserProfileSerializer(user_profile).data, status=status.HTTP_201_CREATED)
 
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
 
-# View for getting, deleting, or updating calories for a specific user profile
+# View for getting, deleting, or updating calories / profile for a specific user profile
 
 class GetDeleteUserProfileView(APIView):
     def get(self, request, uid):
@@ -129,12 +121,21 @@ class GetDeleteUserProfileView(APIView):
     
     def post(self, request, uid):
         serializer = CalorieUpdateSerializer(data=request.data)
-        if serializer.is_valid():
+        if serializer.is_valid() and serializer.checkData(request.data):
             queryset = UserProfile.objects.filter(uid=uid)
             user_profile = queryset[0]
             user_profile.calories_burned_today = serializer.data.get('calories_burned_today')
             user_profile.UpdateTotalCalories()
             user_profile.save(update_fields=['calories_burned_today', 'total_calories_burned'])
             return Response({'Calories updated successfully'}, status=status.HTTP_200_OK)
+
+        serializer = UserProfileSerializer(data=request.data)
+        if serializer.is_valid():
+            queryset = UserProfile.objects.filter(uid=uid)
+            if queryset.exists():
+                user_profile = queryset[0]
+                user_profile = UpdateProfile(user_profile, serializer)
+                user_profile.save(update_fields=['first_name', 'last_name','pronouns', 'weight', 'height_ft', 'height_in'])
+                return Response(UserProfileSerializer(user_profile).data, status=status.HTTP_200_OK)
 
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
