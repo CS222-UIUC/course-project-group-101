@@ -12,6 +12,7 @@ import Signup from './forms/signup';
 import Login from './forms/login';
 import ForgotPassword from './forms/forgot-password';
 import Logout from './pages/logout';
+import Rival from './pages/rival';
 
 import React from 'react';
 import Navbar from './components/Navbar';
@@ -37,6 +38,7 @@ return (
         <Route path='/login' element={<Login/>} />
         <Route path='/logout' element={<Logout/>} />
         <Route path='/forgot-password' element={<ForgotPassword/>} />
+        <Route path='/rival' element={<Rival/>} />
     </Routes>
     </Router>
 );
