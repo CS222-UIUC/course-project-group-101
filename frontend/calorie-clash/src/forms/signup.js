@@ -8,7 +8,7 @@ import '../stylesheets/signup.css';
 class Signup extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {username: "", first_name: "", last_name: "", email: "", password: "", password_confirm: ""};
+        this.state = {username: "", first_name: "", last_name: "", email: "", password: "", password_confirm: "", uid: -1};
         //Currently all changes and info is handled internally
         //Change this when figuring out how to link to django
         this.handleChange = this.handleChange.bind(this);
@@ -33,8 +33,40 @@ class Signup extends React.Component {
             }
         }
         if(valid) {
-            alert("Information valid! Successfully Submitted!");
-            window.open("/profile", "_self");
+
+            var profileCreation = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    "first_name": this.state.first_name,
+                    "last_name": this.state.last_name
+                })
+            };
+
+            
+            fetch('http://127.0.0.1:8000/create-userprofile/', profileCreation)
+                .then((response) => response.text())
+                .then((data) => {
+                this.state.uid = data;
+                console.log("data: ", data);
+                console.log("uid: ", this.state.uid);
+                fetch('http://127.0.0.1:8000/create-user/', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            "username": this.state.username,
+                            "email": this.state.email,
+                            "password": this.state.password,
+                            "uid": this.state.uid
+                        })
+                    }).then((response) => {response.json()})
+                }    
+            );
+                        
+
+            // alert("Information valid! Successfully Submitted!");
+            // window.open("/profile", "_self");
+
         } else {
             alert("Error. Invalid information somewhere. Please try again.");
         }
