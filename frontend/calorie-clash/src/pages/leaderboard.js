@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component} from 'react';
 import '../stylesheets/App.css';
 import '../stylesheets/general.css';
 
@@ -43,12 +43,21 @@ class Leaderboard extends Component{
         <td>{emp.total_calories_burned}</td>
       </tr>
     );
+
+    //Shows user stats only if user is logged in
+    let stats;
+    if(window.localStorage.getItem("UID") === null) {
+      stats = <p className="text">Login to view your stats.</p>
+    } else {
+      //TODO: Change to current user stats
+      stats = <p className="text">Calories burned: </p>
+    }
+
     return (
       <div className="App">
         <div id="title" className="center">
               <h1 className="center projectname"> Leaderboard</h1>
         </div>
-        {/* Only show when logged in when we figure out how to check if logged in*/}
         <div className="center content">
             <h2 className="center subheader">Guide</h2>
             <p className="text">
@@ -56,12 +65,11 @@ class Leaderboard extends Component{
     
                 Click on the user's name to see their public profile! <br></br><br></br>
     
-                Under the leaderboard, you can see your current stats to see where you are relative to others. <br></br><br></br>
+                Under the leaderboard, you can see your current stats to see where you are relative to others (if you are logged in). <br></br><br></br>
             </p>
         </div>
         <div className="center content">
-            <h2 className="center subheader">Put leaderboard here!</h2>
-            <p className="text">Here are the top 10 calorie burners across the world!</p>
+            <h2 className="center subheader">Top 10 Calorie Burners (Global)</h2>
               <table className='leaderboard'>
                   <thead>
                     <tr>
@@ -76,11 +84,8 @@ class Leaderboard extends Component{
               </table>
         </div>
         <div className="center content">
-            <h2 className="center subheader">Put current user stats here (if applicable)!</h2>
-        </div>
-        {/* Show when not logged in when we figure out how to check if logged in*/}
-        <div className = "content center">
-          <p className = "text">Log in to view your profile stats</p>
+            <h2 className='subheader center'> Current User Stats </h2>
+            {stats}
         </div>
       </div>
     );
