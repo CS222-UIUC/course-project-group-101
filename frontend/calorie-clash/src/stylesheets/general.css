@@ -65,6 +65,11 @@ there are 3 links in the navbar  so change if needed**/
     border: solid black 2px;
 }
 
+.space {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
 /*Classes and IDs for all the text and main divs*/
 .center {
     display: block;

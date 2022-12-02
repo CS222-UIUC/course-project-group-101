@@ -2,6 +2,7 @@ import React from 'react';
 import '../stylesheets/App.css';
 import '../stylesheets/general.css';
 import '../stylesheets/signup.css';
+import { Link } from 'react-router-dom';
 
 //Used https://reactjs.org/docs/forms.html for reference
 
@@ -67,6 +68,18 @@ class Signup extends React.Component {
             // alert("Information valid! Successfully Submitted!");
             // window.open("/profile", "_self");
 
+            //TODO: Send data to and get response from Django
+
+            //Shows error if the username cannot be stored on local storage
+            try {
+                //TODO: Get the correct UID to store from Django
+                window.localStorage.setItem("UID", 1);
+
+                alert("Information valid! Successfully Submitted!");
+                window.open("/profile", "_self");
+            } catch (error) {
+                alert("ERROR: Please enable cookies.");
+            }
         } else {
             alert("Error. Invalid information somewhere. Please try again.");
         }
@@ -116,6 +129,8 @@ class Signup extends React.Component {
                     <h1 class="center projectname"> Sign Up </h1>
                 </div>
                 <div className="center thin content">
+                    <p className = "text">Already have an account?</p>
+                    <Link className= "center lbutton space" to="/login">Login</Link>
                     <form className ="left" onSubmit={this.handleSubmit}>       
                         <label for = "username"> Username: (150 characters or fewer)</label>  <br></br>
                         <input name = "username" placeholder="Username" type="text" maxlength = "150" value={this.state.username} onChange={this.handleChange} required/> <br></br>    

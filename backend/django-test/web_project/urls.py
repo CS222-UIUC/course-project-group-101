@@ -26,6 +26,7 @@ urlpatterns = [
     path('check-user/', views.CheckUserView.as_view(), name='checkuser'),
     path('userprofile/<int:uid>/', views.GetDeleteUserProfileView.as_view(), name="userprofile"),
     path('leaderboardview/', views.LeaderboardView.as_view(), name="get-leaderboard"),
+    path('matchingview/', views.MatchingView.as_view(), name="get-matches"),
     path('profile/', views.profile),
     path('leaderboard/', views.leaderboard),
     path('home/', views.home),
