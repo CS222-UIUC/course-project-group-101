@@ -44,7 +44,6 @@ class Signup extends React.Component {
                 })
             };
 
-            
             fetch('http://127.0.0.1:8000/create-userprofile/', profileCreation)
                 .then((response) => response.text())
                 .then((data) => {
@@ -64,22 +63,19 @@ class Signup extends React.Component {
                 }    
             );
                         
-
-            // alert("Information valid! Successfully Submitted!");
-            // window.open("/profile", "_self");
-
             //TODO: Send data to and get response from Django
 
             //Shows error if the username cannot be stored on local storage
-            try {
+            // try {
                 //TODO: Get the correct UID to store from Django
-                window.localStorage.setItem("UID", 1);
+            window.localStorage.setItem("UID", 1);
 
-                alert("Information valid! Successfully Submitted!");
-                window.open("/profile", "_self");
-            } catch (error) {
-                alert("ERROR: Please enable cookies.");
-            }
+            alert("Information valid! Successfully Submitted!");
+            window.open("/profile", "_self");
+            // } catch (error) {
+            //     alert("ERROR: Please enable cookies.");
+            // }
+
         } else {
             alert("Error. Invalid information somewhere. Please try again.");
         }
