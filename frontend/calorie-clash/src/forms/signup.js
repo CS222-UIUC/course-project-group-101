@@ -47,7 +47,9 @@ class Signup extends React.Component {
             fetch('http://127.0.0.1:8000/create-userprofile/', profileCreation)
                 .then((response) => response.text())
                 .then((data) => {
-                this.state.uid = data;
+                this.setState({uid: data});
+                window.localStorage.setItem("UID", data);
+                alert("User #" + window.localStorage.getItem("UID") + " sucessfully created!");
                 console.log("data: ", data);
                 console.log("uid: ", this.state.uid);
                 fetch('http://127.0.0.1:8000/create-user/', {
@@ -59,19 +61,17 @@ class Signup extends React.Component {
                             "password": this.state.password,
                             "uid": this.state.uid
                         })
-                    }).then((response) => {response.json()})
-                }    
-            );
+                    }).then((response) => {
+                        response.json();
+                        window.open("/profile", "_self");
+                    })
+                });
                         
             //TODO: Send data to and get response from Django
 
             //Shows error if the username cannot be stored on local storage
             // try {
                 //TODO: Get the correct UID to store from Django
-            window.localStorage.setItem("UID", 1);
-
-            alert("Information valid! Successfully Submitted!");
-            window.open("/profile", "_self");
             // } catch (error) {
             //     alert("ERROR: Please enable cookies.");
             // }
