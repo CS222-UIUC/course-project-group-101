@@ -37,26 +37,45 @@ def leaderboard(request, *args, **kwargs):
 # HTTP request and response handling for user profiles
 
 from rest_framework import generics, status
-from .serializers import CreateUserSerializer, UserProfileSerializer, LeaderboardSerializer, CalorieUpdateSerializer, MatchingSerializer
+from .serializers import UserSerializer, CheckUserSerializer, UserProfileSerializer, LeaderboardSerializer, CalorieUpdateSerializer, MatchingSerializer
 from .models import UserProfile
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import check_password
 
 User = get_user_model()
 
-# View for listing all user profiles
+# User creating and authentication
 
 class CreateUserView(APIView):
+    def get(self, request):
+        queryset = User.objects.all()
+        serializer_class = UserSerializer(queryset, many=True)
+        return Response(serializer_class.data)
+
     def post(self, request):
-        serializer = CreateUserSerializer(data=request.data)
-        uid = serializer.data.get('uid')
-        queryset = UserProfile.objects.filter(uid=uid)
+        serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             user = User.objects.create_user(email=serializer.data.get('email'), password=serializer.data.get('password'), 
                 username=serializer.data.get('username'), uid=serializer.data.get('uid'))
-            return Response(CreateUserSerializer(user).data, status=status.HTTP_201_CREATED)
+            return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
+        print(serializer.errors)
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
+
+class CheckUserView(APIView):
+    def post(self, request):
+        serializer = CheckUserSerializer(data=request.data)
+        if serializer.is_valid():
+            username = serializer.data.get('username')
+            queryset = User.objects.filter(username=username)
+            if queryset.exists():
+                user = queryset[0]
+                if check_password(serializer.data.get('password'), user.password):
+                    return Response(user.uid, status=status.HTTP_200_OK)
+        return Response({'Login info not found...'}, status=status.HTTP_400_BAD_REQUEST)
+
+# Gets top 10 for leaderboard
 
 class LeaderboardView(generics.ListAPIView):
     queryset = UserProfile.objects.all().order_by('-calories_burned_today')[:10]
@@ -65,6 +84,8 @@ class LeaderboardView(generics.ListAPIView):
 class MatchingView(generics.ListAPIView):
     queryset = UserProfile.objects.all().order_by('height_ft', 'height_in', 'weight')
     serializer_class = MatchingSerializer
+
+# View for listing all user profiles
 
 class UserProfileView(generics.ListAPIView):
     queryset = UserProfile.objects.all().order_by('uid') 
@@ -90,7 +111,7 @@ def CreateProfile(serializer):
     return (UserProfile(first_name=first_name, last_name=last_name, pronouns=pronouns, weight=weight, height_ft=height_ft,
         height_in=height_in, calories_burned_today=calories_burned_today, total_calories_burned=calories_burned_today))
 
-# View for creating / updating user profiles
+# View for creating user profiles
 
 class CreateUserProfileView(APIView):
     def get(self, request):
@@ -103,7 +124,7 @@ class CreateUserProfileView(APIView):
         if serializer.is_valid():
             user_profile = CreateProfile(serializer)
             user_profile.save()
-            return Response(UserProfileSerializer(user_profile).data, status=status.HTTP_201_CREATED)
+            return Response(user_profile.uid, status=status.HTTP_201_CREATED)
 
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
 
