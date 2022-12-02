@@ -33,11 +33,15 @@ class UserProfileAPITestCase(APITestCase):
         response = self.client.post(reverse("createuserprofile"), sample_profile_min)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(models.UserProfile.objects.all().count(), count + 1)
-        self.assertEqual(response.data["uid"], 1)
-        self.assertEqual(response.data["first_name"], "Benjamin")
-        self.assertEqual(response.data["last_name"], "Guan")
-        self.assertEqual(response.data["pronouns"], None)
-        self.assertEqual(response.data["calories_burned_today"], None)
+        self.assertEqual(response.data, 1)
+
+        # Test cases when response used to return data
+
+        # self.assertEqual(response.data["uid"], 1)
+        # self.assertEqual(response.data["first_name"], "Benjamin")
+        # self.assertEqual(response.data["last_name"], "Guan")
+        # self.assertEqual(response.data["pronouns"], None)
+        # self.assertEqual(response.data["calories_burned_today"], None)
 
     # Post request with more fields
     def test_post_more(self):
@@ -47,9 +51,13 @@ class UserProfileAPITestCase(APITestCase):
         response_more = self.client.post(reverse("createuserprofile"), sample_profile_more)
         self.assertEqual(response_more.status_code, status.HTTP_201_CREATED)
         self.assertEqual(models.UserProfile.objects.all().count(), count + 1)
-        self.assertEqual(response_more.data["pronouns"], "he/him")
-        self.assertEqual(response_more.data["weight"], 135)
-        self.assertEqual(response_more.data["total_calories_burned"], 34)
+        self.assertEqual(response_more.data, 1)
+
+        # Test cases when response used to return data
+
+        # self.assertEqual(response_more.data["pronouns"], "he/him")
+        # self.assertEqual(response_more.data["weight"], 135)
+        # self.assertEqual(response_more.data["total_calories_burned"], 34)
 
     # Post request that updates previous fail check, instead creates another
     def test_post_update(self):
@@ -58,18 +66,23 @@ class UserProfileAPITestCase(APITestCase):
         response = self.client.post(reverse("createuserprofile"), sample_profile)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(models.UserProfile.objects.all().count(), count + 1)
-
+        self.assertEqual(response.data, 1)
+        
         sample_profile_update = ({"first_name": "Benjamin", "last_name": "G", "pronouns": "he/him", 
             "weight": 120, "height_ft": 5, "calories_burned_today": 22})
         response_update = self.client.post(reverse("createuserprofile"), sample_profile_update)
         self.assertEqual(response_update.status_code, status.HTTP_201_CREATED)
         self.assertEqual(models.UserProfile.objects.all().count(), count + 2)
-        self.assertEqual(response_update.data["uid"], 2)
-        self.assertEqual(response_update.data["first_name"], "Benjamin")
-        self.assertEqual(response_update.data["last_name"], "G")
-        self.assertEqual(response_update.data["height_ft"], 5)
-        self.assertEqual(response_update.data["calories_burned_today"], 22)
-        self.assertEqual(response_update.data["total_calories_burned"], 22)
+        self.assertEqual(response_update.data, 2)
+
+        # Test cases when response used to return data
+
+        # self.assertEqual(response_update.data["uid"], 2)
+        # self.assertEqual(response_update.data["first_name"], "Benjamin")
+        # self.assertEqual(response_update.data["last_name"], "G")
+        # self.assertEqual(response_update.data["height_ft"], 5)
+        # self.assertEqual(response_update.data["calories_burned_today"], 22)
+        # self.assertEqual(response_update.data["total_calories_burned"], 22)
     
     def test_invalid_post(self):
         count = models.UserProfile.objects.all().count()
