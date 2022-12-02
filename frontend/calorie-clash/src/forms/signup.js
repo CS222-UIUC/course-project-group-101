@@ -34,7 +34,6 @@ class Signup extends React.Component {
             }
         }
         if(valid) {
-
             var profileCreation = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -59,7 +58,22 @@ class Signup extends React.Component {
                             "password": this.state.password,
                             "uid": this.state.uid
                         })
-                    }).then((response) => {response.json()})
+                    })
+                    .then((response) => {
+                    response.json();
+                    if (!response.ok) {
+                        fetch('http://127.0.0.1:8000/userprofile/' + this.state.uid + '/', {
+                            method: 'DELETE'
+                        })
+                        console.log("deleted bad profile");
+                        alert("Username already taken. Please try again.");
+                    } else {
+                        window.localStorage.setItem("UID", 1);
+
+                        alert("Information valid! Successfully Submitted!");
+                        window.open("/profile", "_self");
+                    }
+                    })
                 }    
             );
                         
@@ -68,10 +82,7 @@ class Signup extends React.Component {
             //Shows error if the username cannot be stored on local storage
             // try {
                 //TODO: Get the correct UID to store from Django
-            window.localStorage.setItem("UID", 1);
-
-            alert("Information valid! Successfully Submitted!");
-            window.open("/profile", "_self");
+                
             // } catch (error) {
             //     alert("ERROR: Please enable cookies.");
             // }
