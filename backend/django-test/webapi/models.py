@@ -4,6 +4,17 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 # Create your models here.
+LEVEL_CHOICES = (
+    ('noob','Noob'),
+    ('intm', 'Intermediate'),
+    ('adv', 'Advanced'),
+)
+
+WORKOUT_CHOICES = (
+    ('cardio','Cardio'),
+    ('weight', 'Weight Lifting'),
+    ('calis', 'Calisthenics'),
+)
 
 class UserProfile(models.Model):
     uid = models.AutoField(primary_key=True)
@@ -14,6 +25,10 @@ class UserProfile(models.Model):
     weight = models.IntegerField(blank=True, null=True)
     height_ft = models.IntegerField(blank=True, null=True)
     height_in = models.IntegerField(blank=True, null=True)
+    level_pref = models.CharField(max_length=6, choices=LEVEL_CHOICES, default='noob')
+    time_pref = models.IntegerField(blank=True, null=True)
+    workout_pref = models.CharField(max_length=6, choices=WORKOUT_CHOICES, default='cardio')
+    partner = models.IntegerField(blank=True, null=True)
 
     calories_burned_today = models.IntegerField(blank=True, default=0, null=True)
     total_calories_burned = models.IntegerField(blank=True, default=0, null=True)
