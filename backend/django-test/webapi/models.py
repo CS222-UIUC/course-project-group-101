@@ -30,8 +30,8 @@ class UserProfile(models.Model):
     workout_pref = models.CharField(max_length=6, choices=WORKOUT_CHOICES, default='cardio')
     partner = models.IntegerField(blank=True, null=True)
 
-    calories_burned_today = models.IntegerField(blank=True, default=0, null=True)
-    total_calories_burned = models.IntegerField(blank=True, default=0, null=True)
+    calories_burned_today = models.IntegerField(default=0)
+    total_calories_burned = models.IntegerField(default=0)
 
     # def ConvertHeight(self):
     #     return self.height_ft + self.height_inches / 12
