@@ -107,7 +107,7 @@ def CreateProfile(serializer):
     weight = serializer.data.get('weight')
     height_ft = serializer.data.get('height_ft')
     height_in = serializer.data.get('height_in')
-    calories_burned_today = serializer.data.get('calories_burned_today')
+    calories_burned_today = 0
     return (UserProfile(first_name=first_name, last_name=last_name, pronouns=pronouns, weight=weight, height_ft=height_ft,
         height_in=height_in, calories_burned_today=calories_burned_today, total_calories_burned=calories_burned_today))
 
