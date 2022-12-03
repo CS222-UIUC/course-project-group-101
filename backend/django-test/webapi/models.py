@@ -15,8 +15,8 @@ class UserProfile(models.Model):
     height_ft = models.IntegerField(blank=True, null=True)
     height_in = models.IntegerField(blank=True, null=True)
 
-    calories_burned_today = models.IntegerField(blank=True, default=0, null=True)
-    total_calories_burned = models.IntegerField(blank=True, default=0, null=True)
+    calories_burned_today = models.IntegerField(default=0)
+    total_calories_burned = models.IntegerField(default=0)
 
     # def ConvertHeight(self):
     #     return self.height_ft + self.height_inches / 12
