@@ -13,19 +13,6 @@ class LogCalories extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-/*     //Gets the current profile information via a GET request
-    componentDidMount() {
-        var url = 'http://127.0.0.1:8000/userprofile/' + window.localStorage.getItem("UID") + '/';
-        fetch(url).then((response) => response.json()).then((json) => {
-            this.setState({data: json});
-            var works = this.state.data.map((d) => {
-                this.setState({f_name: d.first_name, l_name: d.last_name, weight: d.weight, h_ft: d.height_ft, h_in: d.height_in, pronouns: d.pronouns});
-                return true;
-            })
-            this.setState({success: works});
-        });
-    } */
-
     //Handles when form input boxes are changed
     handleChange(event) {    
         this.setState({calories_burned: event.target.value});  
