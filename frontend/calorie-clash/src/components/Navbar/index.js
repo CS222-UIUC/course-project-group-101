@@ -26,6 +26,9 @@ const Navbar = () => {
           <NavLink to="/profile" activeStyle>
             Profile
           </NavLink>
+          <NavLink to="/rival" activeStyle>
+            Rival
+          </NavLink>
           {login}
         </NavMenu>
       </Nav>
