@@ -9,11 +9,22 @@ class LogCalories extends React.Component {
     constructor(props) {
         super(props);
         this.state = {calories_burned: 0};
-        //Currently all changes and info is handled internally
-        //Change this when figuring out how to link to django
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+/*     //Gets the current profile information via a GET request
+    componentDidMount() {
+        var url = 'http://127.0.0.1:8000/userprofile/' + window.localStorage.getItem("UID") + '/';
+        fetch(url).then((response) => response.json()).then((json) => {
+            this.setState({data: json});
+            var works = this.state.data.map((d) => {
+                this.setState({f_name: d.first_name, l_name: d.last_name, weight: d.weight, h_ft: d.height_ft, h_in: d.height_in, pronouns: d.pronouns});
+                return true;
+            })
+            this.setState({success: works});
+        });
+    } */
 
     //Handles when form input boxes are changed
     handleChange(event) {    
@@ -22,23 +33,18 @@ class LogCalories extends React.Component {
 
     //Handles when the form is submitted
     handleSubmit(event) {
-        alert('Amount of calories burned submitted: ' + this.state.calories_burned);
         event.preventDefault();
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(
             {
-                "uid": 69,
-                "first_name": "Benjamin",
-                "last_name": "Guan",
-                "pronouns": "he/him",
                 "calories_burned_today": this.state.calories_burned
             })
         };
-        fetch('http://127.0.0.1:8000/create-userprofile/', requestOptions)
-            .then(response => response.json())
-            .then(data => this.setState({ postId: data.id }));
+        fetch('http://127.0.0.1:8000/userprofile/' + window.localStorage.getItem("UID") + '/', requestOptions)
+            .then(response => response.json());
+        alert('Amount of calories burned submitted: ' + this.state.calories_burned);
         // alert("Handled submit");
     }
 
@@ -54,8 +60,11 @@ class LogCalories extends React.Component {
                         <label for = "calories"> Number of calories burned: </label>  
                         <input id = "calories" type="number" min = "0" value={this.state.calories_burned} onChange={this.handleChange} />      
                         <p className='text'>
-                            Add calorie calculation reference guide here
+                            Don't know how many calories you burned? Click on the link below! <br></br> <br></br>
+                            
+                            <a href = "https://www.verywellfit.com/how-many-calories-you-burn-during-exercise-4111064">Calories Burned Calculated</a>
                         </p>
+            
                         <input type="submit" value="Submit" />
                     </form>
                 </div>
