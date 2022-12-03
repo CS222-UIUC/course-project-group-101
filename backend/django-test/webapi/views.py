@@ -82,7 +82,7 @@ class LeaderboardView(generics.ListAPIView):
     serializer_class = LeaderboardSerializer
 
 class MatchingView(generics.ListAPIView):
-    queryset = UserProfile.objects.all().order_by('height_ft', 'height_in', 'weight')
+    queryset = UserProfile.objects.all().order_by('workout_pref','level_pref','time_pref','height_ft', 'height_in', 'weight')
     serializer_class = MatchingSerializer
 
 # View for listing all user profiles
