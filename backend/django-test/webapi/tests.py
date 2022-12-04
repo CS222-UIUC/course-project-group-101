@@ -121,9 +121,9 @@ class LeaderboardAPITestCase(APITestCase):
 
         response = self.client.get(reverse('get-leaderboard'))
         self.assertEqual(len(response.data), models.UserProfile.objects.all().count())
-        self.assertEqual(response.data[0]["calories_burned_today"], 44)
-        self.assertEqual(response.data[1]["calories_burned_today"], 43)
-        self.assertEqual(response.data[2]["calories_burned_today"], None)
+        self.assertEqual(response.data[0]["calories_burned_today"], 0)
+        self.assertEqual(response.data[1]["calories_burned_today"], 0)
+        self.assertEqual(response.data[2]["calories_burned_today"], 0)
     
     def test_topten(self):
         for i in range(11):
