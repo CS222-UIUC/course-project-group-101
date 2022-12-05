@@ -46,7 +46,9 @@ class Signup extends React.Component {
             fetch('http://127.0.0.1:8000/create-userprofile/', profileCreation)
                 .then((response) => response.text())
                 .then((data) => {
-                this.state.uid = data;
+                this.setState({uid: data});
+                window.localStorage.setItem("UID", data);
+                alert("User #" + window.localStorage.getItem("UID") + " sucessfully created!");
                 console.log("data: ", data);
                 console.log("uid: ", this.state.uid);
                 fetch('http://127.0.0.1:8000/create-user/', {
@@ -61,18 +63,15 @@ class Signup extends React.Component {
                     })
                     .then((response) => {
                     response.json();
-                    if (!response.ok) {
-                        fetch('http://127.0.0.1:8000/userprofile/' + this.state.uid + '/', {
-                            method: 'DELETE'
-                        })
-                        console.log("deleted bad profile");
-                        alert("Username already taken. Please try again.");
-                    } else {
-                        window.localStorage.setItem("UID", 1);
-
-                        alert("Information valid! Successfully Submitted!");
-                        window.open("/profile", "_self");
-                    }
+                        if (!response.ok) {
+                            fetch('http://127.0.0.1:8000/userprofile/' + this.state.uid + '/', {
+                                method: 'DELETE'
+                            })
+                            console.log("deleted bad profile");
+                            alert("Username already taken. Please try again.");
+                        } else {
+                            window.open("/profile", "_self");
+                        }
                     })
                 }    
             );
@@ -82,7 +81,10 @@ class Signup extends React.Component {
             //Shows error if the username cannot be stored on local storage
             // try {
                 //TODO: Get the correct UID to store from Django
-                
+            window.localStorage.setItem("UID", 1);
+
+            alert("Information valid! Successfully Submitted!");
+            window.open("/profile", "_self");
             // } catch (error) {
             //     alert("ERROR: Please enable cookies.");
             // }

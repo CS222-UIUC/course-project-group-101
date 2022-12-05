@@ -9,7 +9,7 @@ import { NavLink as Link } from "react-router-dom";
 class Login extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {email: "", password: ""};
+        this.state = {username: "", password: ""};
         //Currently all changes and info is handled internally
         //Change this when figuring out how to link to django
         this.handleChange = this.handleChange.bind(this);
@@ -26,19 +26,27 @@ class Login extends React.Component {
         event.preventDefault();
 
         //TODO: Checks if username and password exist w/ Django
+        event.preventDefault();
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(
+            {
+                "username": this.state.username,
+                "password": this.state.password
+            })
+        };
 
-        var valid = true;
-        if(valid) {
-            //TODO: Change to correct UID once the Django is connected
-            window.localStorage.setItem("UID", 1);
-            alert("Successfully logged in! " + window.localStorage.getItem("UID"));
-
-            window.open("/profile", "_self");
-            
-        } else {
-            alert("Error: Your email or password was incorrect. Please try again.");
-        }
-        
+        fetch('http://127.0.0.1:8000/check-user/', requestOptions).then((response) => response.text()).then((text) => {
+                if(text === '["Login info not found..."]') {
+                    console.log("Wrong username or password");
+                    alert("Error: Your username or password was incorrect. Please try again.");
+                } else {
+                    window.localStorage.setItem("UID", text);
+                    alert("Successfully logged in!")
+                    window.open("/profile", "_self");
+                }
+            })
     }
 
     //What the form looks like
@@ -51,8 +59,8 @@ class Login extends React.Component {
                 <div className="center thin content">
                     <form className ="left" onSubmit={this.handleSubmit}>       
 
-                        <label for = "email"> Email: </label>  <br></br>
-                        <input name = "email" type="email" placeholder="example@gmail.com" value={this.state.email} onChange={this.handleChange} required/> <br></br>
+                        <label for = "username"> Username: </label>  <br></br>
+                        <input name = "username" type="text" value={this.state.email} onChange={this.handleChange} required/> <br></br>
 
                         <label for = "password"> Password: </label>  <br></br>
                         <input name = "password" type="password" value={this.state.password} onChange={this.handleChange} required/> <br></br>
