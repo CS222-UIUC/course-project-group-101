@@ -30,15 +30,15 @@ While there are many fitness tracker programs available, Calorie Clash’s rival
 
 #### *Leaderboard (Ben)* <a name="leaderboard_b"></a>
 
-Insert description and how it connects to other parts here.
+The leaderboard section of the website shows the top 10 users with the most calories burned today. Users can see how they compare to others and compete for the top rankings if they wish. This component works by sending a GET request to a specfic URL endpoint in the backend, which will then filter and return a list of the top ten users by calories burned from the User Profile Storage / database. 
 
 #### *User Profile Storage (Ben/Warren)* <a name="ustorage"></a>
 
-Insert description and how it connects to other parts here.
+Using Django and its integrated SQLite database, we created a UserProfile model that stores the main characteristics of each user who uses the Calorie Clash website. These models are stored within the database, and hold information about each user and their calorie statistics, body type, and workout preferences. Additionally, a custom user model was created to hold information about each user's registration info for the website, namely their email, username, and password. These two models were linked together in the database by an assigned UID number. The User Profile Manger and Leaderboard components look within the database to fetch relevant information that is needed for displaying on the frontend. 
 
 #### *User Profile Manager (edit/get/check/create)* (Ben/Warren) <a name="umanager"></a>
 
-Insert description and how it connects to other parts here.
+THe User Profile Manager is the main API for handling various requests to the backend using HTTP URL endpoints. When a fetch request is sent from the various frontend components (Leaderboard, Login/Logout, Signup, Profile pages, Calorie logger, etc.), these requests are handled by this component. This includes retrieving a user's or list of user's information for profile pages / the leaderboard (GET), creating new users and their associative User Profile using information from the Signup form (POST), editing user information through the Log Calories and Edit Profile components (POST), as well as checking the submitted password against the encrypted version on the backend for logging in (POST). 
 
 #### *Rival Matching Algorithm (Warren)* <a name="rival_match"></a>
 
