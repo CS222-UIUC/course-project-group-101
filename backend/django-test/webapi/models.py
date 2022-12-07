@@ -5,16 +5,17 @@ User = get_user_model()
 
 # Create your models here.
 LEVEL_CHOICES = (
-    ('noob','Noob'),
-    ('intm', 'Intermediate'),
-    ('adv', 'Advanced'),
+    ("noob", "Noob"),
+    ("intm", "Intermediate"),
+    ("adv", "Advanced"),
 )
 
 WORKOUT_CHOICES = (
-    ('cardio','Cardio'),
-    ('weight', 'Weight Lifting'),
-    ('calis', 'Calisthenics'),
+    ("cardio", "Cardio"),
+    ("weight", "Weight Lifting"),
+    ("calis", "Calisthenics"),
 )
+
 
 class UserProfile(models.Model):
     uid = models.AutoField(primary_key=True)
@@ -25,9 +26,11 @@ class UserProfile(models.Model):
     weight = models.IntegerField(blank=True, null=True)
     height_ft = models.IntegerField(blank=True, null=True)
     height_in = models.IntegerField(blank=True, null=True)
-    level_pref = models.CharField(max_length=6, choices=LEVEL_CHOICES, default='noob')
+    level_pref = models.CharField(max_length=6, choices=LEVEL_CHOICES, default="noob")
     time_pref = models.IntegerField(blank=True, null=True)
-    workout_pref = models.CharField(max_length=6, choices=WORKOUT_CHOICES, default='cardio')
+    workout_pref = models.CharField(
+        max_length=6, choices=WORKOUT_CHOICES, default="cardio"
+    )
     partner = models.IntegerField(blank=True, null=True)
 
     calories_burned_today = models.IntegerField(default=0)
@@ -35,6 +38,8 @@ class UserProfile(models.Model):
 
     # def ConvertHeight(self):
     #     return self.height_ft + self.height_inches / 12
+    def match_user(self, uid):
+        self.partner = uid
 
     def UpdateTotalCalories(self):
         self.total_calories_burned += self.calories_burned_today
