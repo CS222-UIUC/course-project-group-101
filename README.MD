@@ -43,12 +43,14 @@ pip install django-cors-headers
 ### For the React Frontend:
 - Node.js (version 14 or later)
 - Npm (version 5.6 or later)
+- React Router DOM
 
 Node.js download: [Node.js](https://nodejs.org/en/)
 
-Npm download command:
+Download commands for other components:
 ```
 npm install -g npm
+npm i react-router-dom
 ```
 
 Checking versions:
