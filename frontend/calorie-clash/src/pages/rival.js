@@ -3,8 +3,33 @@ import { NavLink as Link } from "react-router-dom";
 import '../stylesheets/App.css';
 import '../stylesheets/general.css';
 
-const Rival = () => {
-  return (
+class Rival extends React.Component {
+  constructor(props) {
+    super(props);
+    //Redirects to login if not logged in
+    if(window.localStorage.getItem("UID") === null) {
+      window.open("/login", "_self");
+    }
+    this.state = {rival: ""};
+  }
+
+  componentDidMount() {
+    var url = 'http://127.0.0.1:8000/userprofile/' + window.localStorage.getItem("UID") + '/';
+    fetch(url).then((response) => response.json()).then((json) => {
+        this.setState({data: json});
+        var works = this.state.data.map((d) => {
+            this.setState({rival : d.rival});
+            return true;
+        })
+        this.setState({success: works});
+    });
+  }
+
+  onButtonClickHandler = () => {
+    window.alert('Your Rival is:' + this.rival)
+  };
+
+  render () {
     <div className="App">
       <div id="title" className="center">
           {/*We can put a logo here when we have one*/}
@@ -22,11 +47,11 @@ const Rival = () => {
 
             Ready to take on a Rival? Click below to find out who yours is! <br></br>
 
-            <Link className= "center lbutton" to="/login">Find Your Rival</Link>
+            <button onClick={this.onButtonClickHandler}>Enter</button>
         </p>
       </div>
     </div>
-  );
+  };
 };
   
 export default Rival;
