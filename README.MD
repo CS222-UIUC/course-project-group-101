@@ -38,9 +38,11 @@ Using Django and its integrated SQLite database, we created a UserProfile model 
 
 #### *User Profile Manager (edit/get/check/create)* (Ben/Warren) <a name="umanager"></a>
 
-THe User Profile Manager is the main API for handling various requests to the backend using HTTP URL endpoints. When a fetch request is sent from the various frontend components (Leaderboard, Login/Logout, Signup, Profile pages, Calorie logger, etc.), these requests are handled by this component. This includes retrieving a user's or list of user's information for profile pages / the leaderboard (GET), creating new users and their associative User Profile using information from the Signup form (POST), editing user information through the Log Calories and Edit Profile components (POST), as well as checking the submitted password against the encrypted version on the backend for logging in (POST). 
+The User Profile Manager is the main API for handling various requests to the backend using HTTP URL endpoints. When a fetch request is sent from the various frontend components (Leaderboard, Login/Logout, Signup, Profile pages, Calorie logger, etc.), these requests are handled by this component. This includes retrieving a user's or list of user's information for profile pages / the leaderboard (GET), creating new users and their associative User Profile using information from the Signup form (POST), editing user information through the Log Calories and Edit Profile components (POST), as well as checking the submitted password against the encrypted version on the backend for logging in (POST). 
 
 #### *Rival Matching Algorithm (Warren)* <a name="rival_match"></a>
+
+The idea behind the rival matching algorithm is to match each user with someone who has similar workout preferences with them. There are three main preference categories that the User can submit information about: the type of Workout they focus on, the time they spend per week working out, and their "level of progression" from beginner to advanced. Every time that the User updates their information in one of these three categories, the matching algorithm will match the User with the User that most closely matches them in these three preferences. This component works by sending a POST request to an endpoint in the backend everytime User information is updated.
 
 Insert description and how it connects to other parts here.
 
