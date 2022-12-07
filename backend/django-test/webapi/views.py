@@ -15,29 +15,46 @@ def register_user(request):
             return redirect("/")
         messages.error(request, "Unsuccessful registration.")
     form = RegisterUserForm()
-    return render(request=request, template_name="registration/signup.html", context={"form":form})
+    return render(
+        request=request,
+        template_name="registration/signup.html",
+        context={"form": form},
+    )
+
 
 # Rendering webpages
 def view_foo(request):
     user_profile = request.user.get_profile()
     url = user_profile.url
 
+
 def index(request, *args, **kwargs):
     return render(request, "index.html")
+
 
 def profile(request, *args, **kwargs):
     return render(request, "profile.html")
 
+
 def home(request, *args, **kwargs):
     return render(request, "home.html")
+
 
 def leaderboard(request, *args, **kwargs):
     return render(request, "leaderboard.html")
 
+
 # HTTP request and response handling for user profiles
 
 from rest_framework import generics, status
-from .serializers import UserSerializer, CheckUserSerializer, UserProfileSerializer, LeaderboardSerializer, CalorieUpdateSerializer, MatchingSerializer
+from .serializers import (
+    UserSerializer,
+    CheckUserSerializer,
+    UserProfileSerializer,
+    LeaderboardSerializer,
+    CalorieUpdateSerializer,
+    MatchingSerializer,
+)
 from .models import UserProfile
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -48,6 +65,7 @@ User = get_user_model()
 
 # User creating and authentication
 
+
 class CreateUserView(APIView):
     def get(self, request):
         queryset = User.objects.all()
@@ -57,61 +75,110 @@ class CreateUserView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
-            user = User.objects.create_user(email=serializer.data.get('email'), password=serializer.data.get('password'), 
-                username=serializer.data.get('username'), uid=serializer.data.get('uid'))
+            user = User.objects.create_user(
+                email=serializer.data.get("email"),
+                password=serializer.data.get("password"),
+                username=serializer.data.get("username"),
+                uid=serializer.data.get("uid"),
+            )
             return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
         print(serializer.errors)
-        return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"Bad Request": "Invalid data..."}, status=status.HTTP_400_BAD_REQUEST
+        )
+
 
 class CheckUserView(APIView):
     def post(self, request):
         serializer = CheckUserSerializer(data=request.data)
         if serializer.is_valid():
-            username = serializer.data.get('username')
+            username = serializer.data.get("username")
             queryset = User.objects.filter(username=username)
             if queryset.exists():
                 user = queryset[0]
-                if check_password(serializer.data.get('password'), user.password):
+                if check_password(serializer.data.get("password"), user.password):
                     return Response(user.uid, status=status.HTTP_200_OK)
-        return Response({'Login info not found...'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"Login info not found..."}, status=status.HTTP_400_BAD_REQUEST)
+
 
 # Gets top 10 for leaderboard
 
+
 class LeaderboardView(generics.ListAPIView):
-    queryset = UserProfile.objects.all().order_by('-calories_burned_today')[:10]
+    queryset = UserProfile.objects.all().order_by("-calories_burned_today")[:10]
     serializer_class = LeaderboardSerializer
 
+
 class MatchingView(generics.ListAPIView):
-    queryset = UserProfile.objects.all().order_by('workout_pref','level_pref','time_pref','height_ft', 'height_in', 'weight')
+    queryset = UserProfile.objects.all().order_by(
+        "workout_pref", "level_pref", "time_pref", "height_ft", "height_in", "weight"
+    )
     serializer_class = MatchingSerializer
+    for i in range(len(queryset) - 1):
+        print(queryset[i])
+        print(queryset.values()[i])
+
+
+def FindMatch(user_profile):
+    queryset = UserProfile.objects.all().order_by(
+        "workout_pref", "level_pref", "time_pref", "height_ft", "height_in", "weight"
+    )
+    for i in range(len(queryset)):
+        if queryset[i] == user_profile:
+            if i == len(queryset) - 1:
+                user_profile.partner = queryset.values()[i - 1]["uid"]
+            if i % 2 == 0:
+                user_profile.partner = queryset.values()[i + 1]["uid"]
+            else:
+                user_profile.partner = queryset.values()[i - 1]["uid"]
+    user_profile.partner = queryset.values()[0][
+        "uid"
+    ]  # This case should never be reached if working correctly
+
 
 # View for listing all user profiles
 
+
 class UserProfileView(generics.ListAPIView):
-    queryset = UserProfile.objects.all().order_by('uid') 
+    queryset = UserProfile.objects.all().order_by("uid")
     serializer_class = UserProfileSerializer
 
+
 def UpdateProfile(user_profile, serializer):
-    user_profile.first_name = serializer.data.get('first_name')
-    user_profile.last_name = serializer.data.get('last_name')
-    user_profile.pronouns = serializer.data.get('pronouns')
-    user_profile.weight = serializer.data.get('weight')
-    user_profile.height_ft = serializer.data.get('height_ft')
-    user_profile.height_in = serializer.data.get('height_in')
+    user_profile.first_name = serializer.data.get("first_name")
+    user_profile.last_name = serializer.data.get("last_name")
+    user_profile.pronouns = serializer.data.get("pronouns")
+    user_profile.weight = serializer.data.get("weight")
+    user_profile.height_ft = serializer.data.get("height_ft")
+    user_profile.height_in = serializer.data.get("height_in")
+    user_profile.level_pref = serializer.data.get("level_pref")
+    user_profile.time_pref = serializer.data.get("time_pref")
+    user_profile.workout_pref = serializer.data.get("workout_pref")
     return user_profile
 
+
 def CreateProfile(serializer):
-    first_name = serializer.data.get('first_name')
-    last_name = serializer.data.get('last_name')
-    pronouns = serializer.data.get('pronouns')
-    weight = serializer.data.get('weight')
-    height_ft = serializer.data.get('height_ft')
-    height_in = serializer.data.get('height_in')
+    first_name = serializer.data.get("first_name")
+    last_name = serializer.data.get("last_name")
+    pronouns = serializer.data.get("pronouns")
+    weight = serializer.data.get("weight")
+    height_ft = serializer.data.get("height_ft")
+    height_in = serializer.data.get("height_in")
     calories_burned_today = 0
-    return (UserProfile(first_name=first_name, last_name=last_name, pronouns=pronouns, weight=weight, height_ft=height_ft,
-        height_in=height_in, calories_burned_today=calories_burned_today, total_calories_burned=calories_burned_today))
+    return UserProfile(
+        first_name=first_name,
+        last_name=last_name,
+        pronouns=pronouns,
+        weight=weight,
+        height_ft=height_ft,
+        height_in=height_in,
+        calories_burned_today=calories_burned_today,
+        total_calories_burned=calories_burned_today,
+    )
+
 
 # View for creating user profiles
+
 
 class CreateUserProfileView(APIView):
     def get(self, request):
@@ -126,9 +193,13 @@ class CreateUserProfileView(APIView):
             user_profile.save()
             return Response(user_profile.uid, status=status.HTTP_201_CREATED)
 
-        return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"Bad Request": "Invalid data..."}, status=status.HTTP_400_BAD_REQUEST
+        )
+
 
 # View for getting, deleting, or updating calories / profile for a specific user profile
+
 
 class GetDeleteUserProfileView(APIView):
     def get(self, request, uid):
@@ -139,16 +210,22 @@ class GetDeleteUserProfileView(APIView):
     def delete(self, request, uid):
         user_profile = UserProfile.objects.filter(uid=uid).delete()
         return Response(status=status.HTTP_200_OK)
-    
+
     def post(self, request, uid):
         serializer = CalorieUpdateSerializer(data=request.data)
         if serializer.is_valid() and serializer.checkData(request.data):
             queryset = UserProfile.objects.filter(uid=uid)
             user_profile = queryset[0]
-            user_profile.calories_burned_today = serializer.data.get('calories_burned_today')
+            user_profile.calories_burned_today = serializer.data.get(
+                "calories_burned_today"
+            )
             user_profile.UpdateTotalCalories()
-            user_profile.save(update_fields=['calories_burned_today', 'total_calories_burned'])
-            return Response({'Calories updated successfully'}, status=status.HTTP_200_OK)
+            user_profile.save(
+                update_fields=["calories_burned_today", "total_calories_burned"]
+            )
+            return Response(
+                {"Calories updated successfully"}, status=status.HTTP_200_OK
+            )
 
         serializer = UserProfileSerializer(data=request.data)
         if serializer.is_valid():
@@ -156,7 +233,25 @@ class GetDeleteUserProfileView(APIView):
             if queryset.exists():
                 user_profile = queryset[0]
                 user_profile = UpdateProfile(user_profile, serializer)
-                user_profile.save(update_fields=['first_name', 'last_name','pronouns', 'weight', 'height_ft', 'height_in'])
-                return Response(UserProfileSerializer(user_profile).data, status=status.HTTP_200_OK)
+                user_profile.save(
+                    update_fields=[
+                        "first_name",
+                        "last_name",
+                        "pronouns",
+                        "weight",
+                        "height_ft",
+                        "height_in",
+                        "level_pref",
+                        "time_pref",
+                        "workout_pref",
+                    ]
+                )
+                FindMatch(user_profile)
+                user_profile.save(update_fields=["partner"])
+                return Response(
+                    UserProfileSerializer(user_profile).data, status=status.HTTP_200_OK
+                )
 
-        return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {"Bad Request": "Invalid data..."}, status=status.HTTP_400_BAD_REQUEST
+        )
