@@ -9,7 +9,7 @@ class Rival extends React.Component {
     if(window.localStorage.getItem("UID") === null) {
       window.open("/login", "_self");
     }
-    this.state = {rival: ""};
+    this.state = {rival: "", data: []};
   }
 
   componentDidMount() {
@@ -17,15 +17,14 @@ class Rival extends React.Component {
     fetch(url).then((response) => response.json()).then((json) => {
         this.setState({data: json});
         var works = this.state.data.map((d) => {
-            this.setState({rival : d.partner});
+            this.setState({rival: d.partner});
             return true;
         })
-        this.setState({success: works});
     });
   }
 
   onButtonClickHandler = () => {
-    window.alert('Your Rival is:' + this.rival)
+    window.alert('Your Rival is:' + this.state.rival);
   };
 
   render () {
