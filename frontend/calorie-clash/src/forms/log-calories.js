@@ -32,7 +32,7 @@ class LogCalories extends React.Component {
         fetch('http://127.0.0.1:8000/userprofile/' + window.localStorage.getItem("UID") + '/', requestOptions)
             .then(response => response.json());
         alert('Amount of calories burned submitted: ' + this.state.calories_burned);
-        // alert("Handled submit");
+        window.open("/profile", "_self");
     }
 
     //What the form looks like

@@ -58,7 +58,7 @@ class EditProfile extends React.Component {
             .then(response => response.json())
             .then(data => this.setState({ postId: data.id }));
         alert("Changes Recorded!");
-        //window.open("/profile", "_self");
+        window.open("/profile", "_self");
     }
 
     //What the form looks like
