@@ -4,7 +4,7 @@ import Home from './pages/home';
 import Started from './pages/get-started';
 import Leaderboard from './pages/leaderboard';
 import Profile from './pages/profile';
-import ProfileInfo from './pages/profile-info';
+import RivalInfo from './pages/rival-info';
 
 import LogCalories from './forms/log-calories';
 import EditProfile from './forms/edit-profile';
@@ -33,7 +33,7 @@ return (
         <Route path='/profile' element={<Profile/>} />
         <Route path='/log-calories' element={<LogCalories/>} />
         <Route path='/edit-profile' element={<EditProfile/>} />
-        <Route path='/profile-info' element={<ProfileInfo/>} />
+        <Route path='/rival-info' element={<RivalInfo/>} />
         <Route path='/signup' element={<Signup/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/logout' element={<Logout/>} />

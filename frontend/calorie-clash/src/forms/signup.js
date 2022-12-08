@@ -59,7 +59,7 @@ class Signup extends React.Component {
                             "username": this.state.username,
                             "email": this.state.email,
                             "password": this.state.password,
-                            "uid": this.state.uid
+                            "uid": window.localStorage.getItem("UID")
                         })
                     })
                     .then((response) => {

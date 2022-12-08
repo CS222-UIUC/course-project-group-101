@@ -1,6 +1,7 @@
 import React from 'react';
 import '../stylesheets/App.css';
 import '../stylesheets/general.css';
+import { NavLink as Link } from "react-router-dom";
 
 class Rival extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class Rival extends React.Component {
     if(window.localStorage.getItem("UID") === null) {
       window.open("/login", "_self");
     }
-    this.state = {rival: "", data: []};
+    this.state = {rival: "", data: [], success: false};
   }
 
   componentDidMount() {
@@ -20,12 +21,9 @@ class Rival extends React.Component {
             this.setState({rival: d.partner});
             return true;
         })
+        this.setState({success: works});
     });
   }
-
-  onButtonClickHandler = () => {
-    window.alert('Your Rival is:' + this.state.rival);
-  };
 
   render () {
     return (
@@ -46,7 +44,7 @@ class Rival extends React.Component {
 
               Ready to take on a Rival? Click below to find out who yours is! <br></br>
 
-              <button onClick={this.onButtonClickHandler}>Enter</button>
+              <Link className= "center lbutton" to="/rival-info">Rival Info</Link>
           </p>
         </div>
       </div>
