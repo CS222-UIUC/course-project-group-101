@@ -10,8 +10,6 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {username: "", password: ""};
-        //Currently all changes and info is handled internally
-        //Change this when figuring out how to link to django
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -25,7 +23,7 @@ class Login extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        //TODO: Checks if username and password exist w/ Django
+        //Checks if the username + password exist and responds accordingly
         event.preventDefault();
         const requestOptions = {
             method: 'POST',
@@ -49,7 +47,7 @@ class Login extends React.Component {
             })
     }
 
-    //What the form looks like
+    //Login form
     render() {
         return (
             <div className='App'>

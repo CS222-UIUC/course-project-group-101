@@ -18,9 +18,10 @@ class LogCalories extends React.Component {
         this.setState({calories_burned: event.target.value});  
     }
 
-    //Handles when the form is submitted
+    //Handles when the form is submitted 
     handleSubmit(event) {
         event.preventDefault();
+        //Logs the calories burned by sending it to the backend
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -32,7 +33,7 @@ class LogCalories extends React.Component {
         fetch('http://127.0.0.1:8000/userprofile/' + window.localStorage.getItem("UID") + '/', requestOptions)
             .then(response => response.json());
         alert('Amount of calories burned submitted: ' + this.state.calories_burned);
-        // alert("Handled submit");
+        window.open("/profile", "_self");
     }
 
     //What the form looks like

@@ -2,17 +2,10 @@ import React, { Component} from 'react';
 import '../stylesheets/App.css';
 import '../stylesheets/general.css';
 
-/*Opens the getting started page (add correct link when made)*/
-// function signup() {
-//   window.open(App, "_self");
-// }
-
 class Leaderboard extends Component{
   constructor(props) {
     super(props);
-    this.state = {
-      data:[]
-    };
+    this.state = {data:[], c_burn: 0, total: 0, udata: [], success: false};
   }
 
   // Sends a request to API to get leaderboard
@@ -30,6 +23,19 @@ class Leaderboard extends Component{
   // Fetches data immediately during initialization
   componentDidMount() {
     this.getLeaderboard();
+
+    //Gets current user stats
+    if(window.localStorage.getItem("UID") !== null) {
+      var url = 'http://127.0.0.1:8000/userprofile/' + window.localStorage.getItem("UID") + '/';
+        fetch(url).then((response) => response.json()).then((json) => {
+            this.setState({udata: json});
+            var works = this.state.udata.map((d) => {
+                this.setState({c_burn: d.calories_burned_today, total: d.total_calories_burned});
+                return true;
+            })
+            this.setState({success: works});
+        });
+    }
   }
 
   render() {
@@ -49,8 +55,7 @@ class Leaderboard extends Component{
     if(window.localStorage.getItem("UID") === null) {
       stats = <p className="text">Login to view your stats.</p>
     } else {
-      //TODO: Change to current user stats
-      stats = <p className="text">Calories burned: </p>
+      stats = <p className="text">Calories burned today: {this.state.c_burn} <br></br> <br></br> Total Calories Burned: {this.state.total}</p>
     }
 
     return (

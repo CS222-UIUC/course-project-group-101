@@ -44,6 +44,11 @@ const Started = () => {
             This is where you can view your current profile stats, log your progress, and check in on your rival.
             You can also edit your public profile details here too. <br></br>
           </p>
+
+          <h3 className="center subheader2">Rival</h3>
+          <p className="text">
+            This is where you can view your rival's current stats for some motivation! <br></br>
+          </p>
       </div>
     </div>
   );
