@@ -81,7 +81,7 @@ class Signup extends React.Component {
             //Shows error if the username cannot be stored on local storage
             // try {
                 //TODO: Get the correct UID to store from Django
-            window.localStorage.setItem("UID", 1);
+            //window.localStorage.setItem("UID", 1);
 
             alert("Information valid! Successfully Submitted!");
             window.open("/profile", "_self");
