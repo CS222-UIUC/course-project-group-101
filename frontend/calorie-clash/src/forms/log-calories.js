@@ -18,9 +18,10 @@ class LogCalories extends React.Component {
         this.setState({calories_burned: event.target.value});  
     }
 
-    //Handles when the form is submitted
+    //Handles when the form is submitted 
     handleSubmit(event) {
         event.preventDefault();
+        //Logs the calories burned by sending it to the backend
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

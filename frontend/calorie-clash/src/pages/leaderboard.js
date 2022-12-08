@@ -2,11 +2,6 @@ import React, { Component} from 'react';
 import '../stylesheets/App.css';
 import '../stylesheets/general.css';
 
-/*Opens the getting started page (add correct link when made)*/
-// function signup() {
-//   window.open(App, "_self");
-// }
-
 class Leaderboard extends Component{
   constructor(props) {
     super(props);

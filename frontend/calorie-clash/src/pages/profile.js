@@ -45,6 +45,7 @@ class Profile extends React.Component {
       workout = "Cardio";
     }
 
+    //Profile info
     return (
       <div className="App">
         <div id="title" class="center">

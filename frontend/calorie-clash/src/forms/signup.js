@@ -34,6 +34,7 @@ class Signup extends React.Component {
             }
         }
         if(valid) {
+            //Creates a profile
             var profileCreation = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -70,24 +71,12 @@ class Signup extends React.Component {
                             console.log("deleted bad profile");
                             alert("Username already taken. Please try again.");
                         } else {
+                            alert("Information valid! Successfully Submitted!");
                             window.open("/profile", "_self");
                         }
                     })
                 }    
             );
-                        
-            //TODO: Send data to and get response from Django
-
-            //Shows error if the username cannot be stored on local storage
-            // try {
-                //TODO: Get the correct UID to store from Django
-            //window.localStorage.setItem("UID", 1);
-
-            alert("Information valid! Successfully Submitted!");
-            window.open("/profile", "_self");
-            // } catch (error) {
-            //     alert("ERROR: Please enable cookies.");
-            // }
 
         } else {
             alert("Error. Invalid information somewhere. Please try again.");
