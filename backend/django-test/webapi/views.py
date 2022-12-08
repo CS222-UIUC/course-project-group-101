@@ -114,9 +114,6 @@ class MatchingView(generics.ListAPIView):
         "workout_pref", "level_pref", "time_pref", "height_ft", "height_in", "weight"
     )
     serializer_class = MatchingSerializer
-    for i in range(len(queryset) - 1):
-        print(queryset[i])
-        print(queryset.values()[i])
 
 
 def FindMatch(user_profile):
